@@ -51,7 +51,7 @@ The visual identity treats the portfolio as a shipping document: projects are a 
 - Framer usage goes through `LazyMotion` (`components/MotionProvider.tsx`, non-strict): import `m` from framer-motion, not `motion`.
 - Interaction primitives live in `components/motion/` (Magnetic, TiltCard, CustomCursor, ScrollProgress, CountUp, Reveal + RevealObserver). All are gated on fine pointer + `prefers-reduced-motion`; the custom cursor is a decorative overlay (no `cursor: none`) so it can't break selection or inputs.
 - Below-fold sections are wrapped in `.cv-auto` (`content-visibility: auto`) in `app/page.tsx`. Note `innerText` excludes skipped content — use `textContent` when scripting checks.
-- SEO: `app/robots.ts`, `app/sitemap.ts`, Person JSON-LD in `components/StructuredData.tsx`; update the hardcoded BASE_URL in all three if the domain changes.
+- SEO: the canonical URL lives once in `data/personal.ts` (`siteUrl`) and feeds `app/layout.tsx` metadata, `app/robots.ts`, `app/sitemap.ts` and `components/StructuredData.tsx` — change it there if the domain changes. StructuredData emits an `@graph` (Person + WebSite + ProfilePage + FAQPage); the FAQ schema and the visible FAQ section both read `data/faq.ts`, and FAQ answers are intentionally keyword-carrying copy. `metaTitle`/`metaDescription` in `data/personal.ts` are the tuned search snippets. Search Console verification comes from `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` at deploy time.
 
 ### Client-name policy
 

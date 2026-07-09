@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
+import { personalInfo } from "@/data/personal";
 
-const BASE_URL = "https://aqeel-portfolio.vercel.app";
+const BASE_URL = personalInfo.siteUrl;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [

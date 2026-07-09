@@ -5,6 +5,11 @@ export const personalInfo: PersonalInfo = {
   title: "Senior Mobile & Full-Stack Engineer · React Native · Flutter · Next.js",
   tagline:
     "I help startups and product teams ship secure, high-performance mobile apps and web platforms: React Native, Expo, Flutter on mobile; Next.js, React and NestJS on the web. From MVP to App Store and production, with bulletproof CI/CD, SEO and Core Web Vitals baked in.",
+  siteUrl: "https://aqeel-portfolio.vercel.app",
+  metaTitle:
+    "Aqeel Ahmad | Senior Mobile Engineer · React Native, Flutter & Full Stack Developer",
+  metaDescription:
+    "Senior mobile engineer shipping React Native, Flutter and native iOS and Android apps, plus full stack web platforms. 14+ products live in stores. Open for remote contracts.",
   heroHeadline: ["Blank screen", "to App Store"],
   heroIntro:
     "I am Aqeel Ahmad, senior mobile and full-stack engineer. In 6+ years I have taken products from first commit to production: React Native, Expo and Flutter on mobile; Next.js and NestJS on the web. CI/CD, store compliance and performance owned end to end.",

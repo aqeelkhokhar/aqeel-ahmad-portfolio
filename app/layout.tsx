@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { BookingProvider } from "@/components/BookingProvider";
@@ -24,36 +24,79 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: `${personalInfo.name} · ${personalInfo.title}`,
-  description: personalInfo.tagline,
-  metadataBase: new URL("https://aqeel-portfolio.vercel.app"),
+  title: personalInfo.metaTitle,
+  description: personalInfo.metaDescription,
+  metadataBase: new URL(personalInfo.siteUrl),
   alternates: { canonical: "/" },
+  applicationName: `${personalInfo.name} · Portfolio`,
+  creator: personalInfo.name,
+  category: "technology",
   keywords: [
-    "React Native developer",
-    "Flutter developer",
-    "Next.js developer",
-    "Full-stack engineer",
-    "Mobile app development",
-    "Senior mobile engineer",
+    "Aqeel Ahmad",
+    "Mobile Developer",
+    "Mobile Engineer",
+    "Senior Mobile Engineer",
+    "React Native Developer",
+    "React Native Engineer",
+    "Flutter Developer",
+    "Cross Platform Developer",
+    "Native Android Developer",
+    "Native iOS Developer",
+    "Web Developer",
+    "Full Stack Developer",
+    "Next.js Developer",
+    "Hire React Native Developer",
+    "Freelance Mobile Developer",
+    "Remote Mobile Developer",
+    "Mobile App Development",
     "NestJS",
     "TypeScript",
   ],
-  authors: [{ name: personalInfo.name }],
-  robots: { index: true, follow: true },
+  authors: [{ name: personalInfo.name, url: personalInfo.siteUrl }],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel to verify Search
+  // Console without editing code.
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : undefined,
   openGraph: {
-    title: `${personalInfo.name} · ${personalInfo.title}`,
-    description: personalInfo.tagline,
-    type: "website",
+    title: personalInfo.metaTitle,
+    description: personalInfo.metaDescription,
+    type: "profile",
     url: "/",
-    siteName: personalInfo.name,
-    images: [{ url: "/og/og.png", width: 1200, height: 630, alt: personalInfo.name }],
+    siteName: `${personalInfo.name} · Portfolio`,
+    locale: "en_US",
+    images: [
+      {
+        url: "/og/og.png",
+        width: 1200,
+        height: 630,
+        alt: `${personalInfo.name}, Senior Mobile Engineer and Full Stack Developer`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${personalInfo.name} · ${personalInfo.title}`,
-    description: personalInfo.tagline,
+    title: personalInfo.metaTitle,
+    description: personalInfo.metaDescription,
     images: ["/og/og.png"],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#14110f" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f5f0" },
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

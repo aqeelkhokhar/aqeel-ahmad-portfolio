@@ -4,6 +4,12 @@ export type PersonalInfo = {
   name: string;
   title: string;
   tagline: string;
+  /** Canonical production URL — single source for metadata, sitemap, robots and JSON-LD. */
+  siteUrl: string;
+  /** <title> tag, front-loaded with the roles we want to rank for. */
+  metaTitle: string;
+  /** Meta description, ~155 characters for full display in Google. */
+  metaDescription: string;
   /** Hero headline, one array entry per display line. */
   heroHeadline: string[];
   /** Short hero paragraph (the tagline is long-form for SEO/meta). */
@@ -113,4 +119,9 @@ export type Testimonial = {
 export type NavItem = {
   id: string;
   label: string;
+};
+
+export type FaqItem = {
+  question: string;
+  answer: string;
 };

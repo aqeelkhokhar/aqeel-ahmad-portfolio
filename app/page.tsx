@@ -12,6 +12,7 @@ import { Achievements } from "@/components/sections/Achievements";
 import { Certificates } from "@/components/sections/Certificates";
 import { Education } from "@/components/sections/Education";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { Faq } from "@/components/sections/Faq";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
@@ -49,6 +50,9 @@ export default function Home() {
         </div>
         <div className="cv-auto">
           <Testimonials />
+        </div>
+        <div className="cv-auto">
+          <Faq />
         </div>
         <div className="cv-auto">
           <Contact />

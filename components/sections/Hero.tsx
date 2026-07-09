@@ -43,6 +43,12 @@ export function Hero() {
               </p>
 
               <h1 className="mt-6 font-heading text-[2.75rem] font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+                {/* Crawler/screen-reader text: the visual headline is a slogan,
+                    so the indexable h1 content carries name + target roles. */}
+                <span className="sr-only">
+                  {personalInfo.name}, Senior Mobile Engineer: React Native, Flutter, native iOS
+                  and Android, and full stack web developer.
+                </span>
                 {personalInfo.heroHeadline.map((line, i) => (
                   <span key={line} className="block overflow-hidden pb-1">
                     <span className="reveal-line block" style={{ animationDelay: `${120 + i * 100}ms` }}>
@@ -109,7 +115,7 @@ export function Hero() {
                 <div className="relative aspect-[4/3] overflow-hidden border-b border-border">
                   <Image
                     src={personalInfo.profileImage}
-                    alt={personalInfo.name}
+                    alt={`${personalInfo.name}, Senior Mobile Engineer and Full Stack Developer`}
                     fill
                     sizes="(min-width: 1024px) 384px, 100vw"
                     className="object-cover object-[center_18%]"
