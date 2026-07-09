@@ -113,8 +113,9 @@ export function BookingDialog({ open, onOpenChange }: Props) {
                 Book a Discovery Call
               </DialogTitle>
               <DialogDescription>
-                {MEETING_DURATION_MIN}-min intro call with {personalInfo.name.split(" ")[0]}. Pick a
-                slot below. Times shown in <span className="font-medium">{TIMEZONE_LABEL}</span>.
+                A {MEETING_DURATION_MIN} minute intro call with {personalInfo.name.split(" ")[0]}.
+                Pick a slot below. Times shown in{" "}
+                <span className="font-medium">{TIMEZONE_LABEL}</span>.
               </DialogDescription>
             </DialogHeader>
 
@@ -201,23 +202,23 @@ export function BookingDialog({ open, onOpenChange }: Props) {
 
               <label className="block">
                 <span className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                  What's the call about? (optional)
+                  What is the call about? (optional)
                 </span>
                 <textarea
                   rows={3}
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="A few lines on the mobile project or role you're hiring for…"
+                  placeholder="A few lines on the mobile project or role you are hiring for"
                   className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 />
               </label>
 
               <div className="flex items-center justify-between gap-3 border-t border-border pt-4">
                 <p className="text-xs text-muted-foreground">
-                  On submit, you'll get a calendar invite (.ics) and your email app will open with
-                  the booking details to send to {personalInfo.name.split(" ")[0]}.
+                  On submit, you will get a calendar invite (.ics) and your email app will open
+                  with the booking details to send to {personalInfo.name.split(" ")[0]}.
                 </p>
-                <Button type="submit" variant="gradient" disabled={!canSubmit || submitting}>
+                <Button type="submit" disabled={!canSubmit || submitting}>
                   {submitting ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
@@ -241,7 +242,7 @@ export function BookingDialog({ open, onOpenChange }: Props) {
               </DialogDescription>
             </DialogHeader>
 
-            <div className="rounded-xl border border-border bg-gradient-to-br from-primary/5 via-accent/5 to-transparent p-5">
+            <div className="rounded-md border border-border bg-muted/50 p-5">
               <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 Slot
               </div>
@@ -274,7 +275,7 @@ export function BookingDialog({ open, onOpenChange }: Props) {
 
             <p className="text-xs text-muted-foreground">
               {personalInfo.name.split(" ")[0]} will confirm via email within a few hours (GMT+5
-              business hours). If the slot doesn't fit, suggest an alternative in your reply.
+              business hours). If the slot does not fit, suggest an alternative in your reply.
             </p>
           </>
         )}

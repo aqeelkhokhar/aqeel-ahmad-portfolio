@@ -1,83 +1,61 @@
 "use client";
 
-import { Check, ArrowRight, Star } from "lucide-react";
-import { AnimatedSection } from "@/components/AnimatedSection";
+import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StaggerGroup, StaggerItem } from "@/components/Motion";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Reveal } from "@/components/motion/Reveal";
+import { useBooking } from "@/components/BookingProvider";
 import { services } from "@/data/services";
-import { cn } from "@/lib/utils";
 
 export function Services() {
-  const scrollToContact = () => {
-    const el = document.getElementById("contact");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const booking = useBooking();
 
   return (
-    <AnimatedSection id="services" className="container py-20 scroll-mt-20">
+    <section id="services" className="container scroll-mt-20 py-20 sm:py-24">
       <SectionHeading
-        eyebrow="Services"
-        title="Ways we can work together"
-        description="Three packaged engagements. Pick the one that matches where your mobile product is today."
+        eyebrow={`Engagements · ${services.length} ways to work together`}
+        title="Plug me into your roadmap."
+        description="Fixed scope builds, embedded leadership or release rescue. Pick the shape that fits."
       />
 
-      <StaggerGroup className="grid gap-6 md:grid-cols-3" stagger={0.12}>
-        {services.map((service) => {
-          const Icon = service.icon;
-          return (
-            <StaggerItem key={service.title} hover>
-              <Card
-                className={cn(
-                  "relative flex h-full flex-col overflow-hidden transition-shadow hover:shadow-2xl",
-                  service.featured && "ring-2 ring-primary/40"
-                )}
-              >
-                {service.featured && (
-                  <div className="absolute right-4 top-4">
-                    <Badge variant="accent" className="gap-1">
-                      <Star className="h-3 w-3" /> Most popular
-                    </Badge>
-                  </div>
-                )}
-                <CardContent className="flex h-full flex-col p-6">
-                  <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 text-primary">
-                    <Icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-heading text-xl font-bold">{service.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">{service.pitch}</p>
+      <div className="grid gap-5 lg:grid-cols-3">
+        {services.map((service, i) => (
+          <Reveal key={service.title} delay={0.08 * i} className="h-full">
+            <article className="flex h-full flex-col rounded-md border border-border bg-card transition-colors duration-200 hover:border-primary/60">
+              <div className="flex items-center justify-between gap-3 border-b border-border px-6 py-3.5">
+                <span className="label-mono text-muted-foreground">{service.timeline}</span>
+                {service.featured && <span className="label-mono text-primary">Most booked</span>}
+              </div>
 
-                  <ul className="mt-5 space-y-2.5">
-                    {service.deliverables.map((d) => (
-                      <li key={d} className="flex gap-2.5 text-sm">
-                        <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
-                        <span className="text-foreground/80">{d}</span>
-                      </li>
-                    ))}
-                  </ul>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="font-heading text-xl font-semibold tracking-tight">
+                  {service.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{service.pitch}</p>
 
-                  <div className="mt-6 flex items-center justify-between border-t border-border pt-5">
-                    <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                      {service.timeline}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={scrollToContact}
-                      className="text-primary hover:text-primary"
-                    >
-                      Discuss this
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </StaggerItem>
-          );
-        })}
-      </StaggerGroup>
-    </AnimatedSection>
+                <ul className="mt-6 flex-1 space-y-3">
+                  {service.deliverables.map((d) => (
+                    <li key={d} className="flex gap-3 text-sm leading-relaxed text-foreground/85">
+                      <span
+                        className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 bg-primary"
+                        aria-hidden="true"
+                      />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+
+                <button
+                  onClick={booking.open}
+                  className="group mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary"
+                >
+                  Book this engagement
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </section>
   );
 }

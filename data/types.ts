@@ -4,6 +4,12 @@ export type PersonalInfo = {
   name: string;
   title: string;
   tagline: string;
+  /** Hero headline, one array entry per display line. */
+  heroHeadline: string[];
+  /** Short hero paragraph (the tagline is long-form for SEO/meta). */
+  heroIntro: string;
+  /** "What you get" bullets used in the About section. */
+  highlights: string[];
   summary: string[];
   email: string;
   countryCode: string;

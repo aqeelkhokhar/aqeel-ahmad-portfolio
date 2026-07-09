@@ -1,4 +1,7 @@
 import { Navbar } from "@/components/Navbar";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { CustomCursor } from "@/components/motion/CustomCursor";
+import { RevealObserver } from "@/components/motion/RevealObserver";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
@@ -15,19 +18,41 @@ import { Footer } from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
+      <CustomCursor />
+      <RevealObserver />
       <Navbar />
       <main>
         <Hero />
         <About />
-        <Services />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Achievements />
-        <Certificates />
-        <Education />
-        <Testimonials />
-        <Contact />
+        {/* cv-auto defers layout/paint of below-fold sections until scrolled near */}
+        <div className="cv-auto">
+          <Services />
+        </div>
+        <div className="cv-auto">
+          <Skills />
+        </div>
+        <div className="cv-auto">
+          <Projects />
+        </div>
+        <div className="cv-auto">
+          <Experience />
+        </div>
+        <div className="cv-auto">
+          <Achievements />
+        </div>
+        <div className="cv-auto">
+          <Certificates />
+        </div>
+        <div className="cv-auto">
+          <Education />
+        </div>
+        <div className="cv-auto">
+          <Testimonials />
+        </div>
+        <div className="cv-auto">
+          <Contact />
+        </div>
       </main>
       <Footer />
     </>

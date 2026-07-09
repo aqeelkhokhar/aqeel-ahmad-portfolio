@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants, type HTMLMotionProps } from "framer-motion";
+import { m, type Variants, type HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const sectionVariants: Variants = {
@@ -45,7 +45,7 @@ type SectionRevealProps = HTMLMotionProps<"section"> & { delay?: number };
 
 export function SectionReveal({ className, delay = 0, children, ...rest }: SectionRevealProps) {
   return (
-    <motion.section
+    <m.section
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
@@ -55,7 +55,7 @@ export function SectionReveal({ className, delay = 0, children, ...rest }: Secti
       {...rest}
     >
       {children}
-    </motion.section>
+    </m.section>
   );
 }
 
@@ -88,22 +88,22 @@ export function StaggerGroup({
   };
   if (as === "ul") {
     return (
-      <motion.ul {...shared} {...(rest as HTMLMotionProps<"ul">)}>
+      <m.ul {...shared} {...(rest as HTMLMotionProps<"ul">)}>
         {children}
-      </motion.ul>
+      </m.ul>
     );
   }
   if (as === "section") {
     return (
-      <motion.section {...shared} {...(rest as HTMLMotionProps<"section">)}>
+      <m.section {...shared} {...(rest as HTMLMotionProps<"section">)}>
         {children}
-      </motion.section>
+      </m.section>
     );
   }
   return (
-    <motion.div {...shared} {...(rest as HTMLMotionProps<"div">)}>
+    <m.div {...shared} {...(rest as HTMLMotionProps<"div">)}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -135,22 +135,22 @@ export function StaggerItem({
   };
   if (as === "li") {
     return (
-      <motion.li {...shared} {...(rest as HTMLMotionProps<"li">)}>
+      <m.li {...shared} {...(rest as HTMLMotionProps<"li">)}>
         {children}
-      </motion.li>
+      </m.li>
     );
   }
   if (as === "article") {
     return (
-      <motion.article {...shared} {...(rest as HTMLMotionProps<"article">)}>
+      <m.article {...shared} {...(rest as HTMLMotionProps<"article">)}>
         {children}
-      </motion.article>
+      </m.article>
     );
   }
   return (
-    <motion.div {...shared} {...(rest as HTMLMotionProps<"div">)}>
+    <m.div {...shared} {...(rest as HTMLMotionProps<"div">)}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 

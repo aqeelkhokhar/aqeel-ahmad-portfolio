@@ -1,55 +1,52 @@
-import Image from "next/image";
-import { Award, ExternalLink } from "lucide-react";
-import { AnimatedSection } from "@/components/AnimatedSection";
+import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
-import { Card, CardContent } from "@/components/ui/card";
+import { Reveal } from "@/components/motion/Reveal";
 import { certificates } from "@/data/certificates";
 
 export function Certificates() {
   if (!certificates.length) return null;
 
   return (
-    <AnimatedSection id="certificates" className="container py-20 scroll-mt-20">
-      <SectionHeading
-        eyebrow="Credentials"
-        title="Certifications"
-        description="Formal training and verifications."
-      />
+    <section id="certificates" className="container scroll-mt-20 py-20 sm:py-24">
+      <SectionHeading eyebrow="Credentials" title="Certifications." />
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {certificates.map((c) => (
-          <Card
-            key={c.name}
-            className="group transition-all hover:-translate-y-1 hover:shadow-lg"
-          >
-            <CardContent className="flex items-start gap-4 p-5">
-              <div className="grid h-12 w-12 flex-shrink-0 place-items-center overflow-hidden rounded-lg bg-primary/10">
-                {c.logo ? (
-                  <Image src={c.logo} alt={c.issuer} width={40} height={40} className="object-contain" />
-                ) : (
-                  <Award className="h-6 w-6 text-primary" />
-                )}
+      <Reveal>
+        <div className="border-t border-border">
+          {certificates.map((cert) => {
+            const row = (
+              <div className="grid gap-x-8 gap-y-1 py-5 md:grid-cols-12">
+                <div className="font-mono text-xs tracking-wider text-muted-foreground md:col-span-3 md:pt-1">
+                  {cert.date}
+                </div>
+                <div className="flex items-start justify-between gap-4 md:col-span-9">
+                  <div>
+                    <div className="font-heading text-base font-semibold">{cert.name}</div>
+                    <div className="mt-0.5 text-sm text-muted-foreground">{cert.issuer}</div>
+                  </div>
+                  {cert.credentialUrl && (
+                    <ArrowUpRight className="h-4 w-4 flex-shrink-0 text-muted-foreground" />
+                  )}
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-heading text-base font-semibold leading-tight">{c.name}</h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {c.issuer} · {c.date}
-                </p>
-                {c.credentialUrl && (
-                  <a
-                    href={c.credentialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
-                  >
-                    View credential <ExternalLink className="h-3 w-3" />
-                  </a>
-                )}
+            );
+            return cert.credentialUrl ? (
+              <a
+                key={cert.name}
+                href={cert.credentialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block border-b border-border transition-colors hover:bg-muted/50"
+              >
+                {row}
+              </a>
+            ) : (
+              <div key={cert.name} className="border-b border-border">
+                {row}
               </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    </AnimatedSection>
+            );
+          })}
+        </div>
+      </Reveal>
+    </section>
   );
 }

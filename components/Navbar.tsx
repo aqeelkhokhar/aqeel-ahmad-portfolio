@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, CalendarCheck } from "lucide-react";
+import { m, AnimatePresence } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useBooking } from "@/components/BookingProvider";
@@ -49,35 +49,26 @@ export function Navbar() {
   };
 
   return (
-    <motion.header
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    <header
       className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-[backdrop-filter,box-shadow,background-color] duration-300",
-        scrolled ? "glass shadow-sm" : "bg-transparent"
+        // header-drop is CSS-only so the navbar is visible pre-hydration.
+        "header-drop fixed inset-x-0 top-0 z-40 transition-[backdrop-filter,background-color,border-color] duration-300",
+        scrolled
+          ? "border-b border-border bg-background/85 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
       )}
     >
       <div className="container flex h-16 items-center justify-between">
         <button
           onClick={() => handleClick("home")}
-          className="flex items-center gap-2 font-heading text-lg font-bold"
+          className="flex items-baseline gap-1 font-heading text-base font-bold tracking-tight"
+          aria-label="Back to top"
         >
-          <motion.span
-            whileHover={{ rotate: -6, scale: 1.06 }}
-            whileTap={{ scale: 0.95 }}
-            className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-primary to-accent text-white shadow-md"
-          >
-            {personalInfo.name
-              .split(" ")
-              .map((n) => n[0])
-              .slice(0, 2)
-              .join("")}
-          </motion.span>
-          <span className="hidden sm:inline">{personalInfo.name.split(" ")[0]}.</span>
+          {personalInfo.name}
+          <span className="inline-block h-1.5 w-1.5 translate-y-px bg-primary" aria-hidden="true" />
         </button>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center md:flex">
           {navItems.map((item) => {
             const isActive = active === item.id;
             return (
@@ -85,18 +76,18 @@ export function Navbar() {
                 key={item.id}
                 onClick={() => handleClick(item.id)}
                 className={cn(
-                  "relative rounded-full px-4 py-2 text-sm font-medium transition-colors",
+                  "label-mono relative px-3.5 py-2 transition-colors",
                   isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 )}
               >
+                {item.label}
                 {isActive && (
-                  <motion.span
-                    layoutId="nav-active-pill"
-                    className="absolute inset-0 -z-10 rounded-full bg-primary/10"
-                    transition={{ type: "spring", stiffness: 360, damping: 30 }}
+                  <m.span
+                    layoutId="nav-underline"
+                    className="absolute inset-x-3.5 -bottom-px h-px bg-primary"
+                    transition={{ type: "spring", stiffness: 400, damping: 34 }}
                   />
                 )}
-                {item.label}
               </button>
             );
           })}
@@ -104,14 +95,8 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <Button
-            variant="gradient"
-            size="sm"
-            className="hidden sm:inline-flex"
-            onClick={booking.open}
-          >
-            <CalendarCheck className="h-4 w-4" />
-            Book a Call
+          <Button size="sm" className="hidden sm:inline-flex" onClick={booking.open}>
+            Book a call
           </Button>
           <Button
             size="icon"
@@ -127,43 +112,42 @@ export function Navbar() {
 
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.2 }}
-            className="glass border-t border-border md:hidden"
+            className="border-t border-border bg-background/95 backdrop-blur-md md:hidden"
           >
-            <nav className="container flex flex-col gap-1 py-4">
+            <nav className="container flex flex-col py-4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => handleClick(item.id)}
                   className={cn(
-                    "rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors",
-                    active === item.id
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    "flex items-center justify-between border-b border-border/60 py-3.5 text-left font-heading text-lg font-semibold transition-colors",
+                    active === item.id ? "text-primary" : "text-foreground hover:text-primary"
                   )}
                 >
                   {item.label}
+                  <span className="label-mono text-muted-foreground">
+                    {active === item.id ? "●" : ""}
+                  </span>
                 </button>
               ))}
               <Button
-                variant="gradient"
-                className="mt-2"
+                className="mt-4"
                 onClick={() => {
                   setMobileOpen(false);
                   booking.open();
                 }}
               >
-                <CalendarCheck className="h-4 w-4" />
-                Book a Call
+                Book a discovery call
               </Button>
             </nav>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

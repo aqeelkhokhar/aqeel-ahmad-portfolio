@@ -1,176 +1,175 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { CalendarCheck, Download, MapPin, Sparkles } from "lucide-react";
-
-function getInitials(name: string) {
-  return name
-    .split(" ")
-    .map((n) => n[0])
-    .filter(Boolean)
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
-}
+import { ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { CountUp } from "@/components/motion/CountUp";
 import { useBooking } from "@/components/BookingProvider";
 import { personalInfo } from "@/data/personal";
 import { stats } from "@/data/stats";
 import { socialLinks } from "@/data/social";
+import { projects } from "@/data/projects";
+
+// Static "barcode" strip for the manifest card footer — widths in px.
+const BARCODE = [3, 1, 2, 1, 4, 2, 1, 3, 1, 2, 4, 1, 2, 1, 3, 2, 1, 4, 1, 2];
+
+const MANIFEST_ROWS: Array<{ label: string; value: string }> = [
+  { label: "Role", value: "Sr. Mobile & Full-Stack" },
+  { label: "Stack", value: "React Native · Flutter · Next.js" },
+  { label: "Base", value: `${personalInfo.location} · GMT+5` },
+  { label: "Shipped", value: `${projects.length} products · 3 stores` },
+];
 
 export function Hero() {
   const booking = useBooking();
+
   return (
-    <section
-      id="home"
-      className="relative isolate overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24"
-    >
-      <div className="grid-bg absolute inset-0 -z-10" aria-hidden="true" />
-      <div
-        className="absolute left-1/2 top-0 -z-10 h-[40rem] w-[60rem] -translate-x-1/2 rounded-full bg-gradient-to-br from-primary/20 via-accent/10 to-transparent blur-3xl"
-        aria-hidden="true"
-      />
+    <section id="home" className="relative">
+      {/* Follows the page theme (ink or paper) with a crisp hairline boundary
+          at the bottom, no seam fade. */}
+      <div className="flex min-h-[94svh] flex-col justify-center border-b border-border bg-background pb-14 pt-28 text-foreground sm:pt-32">
+        <div className="container">
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+            {/* CSS-only entrance (reveal-*) so the hero paints and animates
+                before the JS bundle hydrates. */}
+            <div className="lg:col-span-7">
+              <p className="label-mono reveal-up inline-flex items-center gap-2.5 text-muted-foreground">
+                <span className="relative flex h-2 w-2" aria-hidden="true">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                </span>
+                {personalInfo.availability}
+              </p>
 
-      <div className="container">
-        <div className="grid items-center gap-12 md:grid-cols-5">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="md:col-span-3"
-          >
-            <Badge variant="accent" className="mb-5 gap-1.5">
-              <Sparkles className="h-3.5 w-3.5" /> {personalInfo.availability}
-            </Badge>
-            <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Hi, I&apos;m {personalInfo.name.split(" ")[0]}.<br />
-              <span className="text-gradient">{personalInfo.title}</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              {personalInfo.tagline}
-            </p>
+              <h1 className="mt-6 font-heading text-[2.75rem] font-bold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+                {personalInfo.heroHeadline.map((line, i) => (
+                  <span key={line} className="block overflow-hidden pb-1">
+                    <span className="reveal-line block" style={{ animationDelay: `${120 + i * 100}ms` }}>
+                      {line}
+                      {i === personalInfo.heroHeadline.length - 1 && (
+                        <span className="text-primary">.</span>
+                      )}
+                    </span>
+                  </span>
+                ))}
+              </h1>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Button variant="gradient" size="lg" onClick={booking.open}>
-                <CalendarCheck className="h-5 w-5" />
-                Book a Discovery Call
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <a href={personalInfo.resumeLink} target="_blank" rel="noopener noreferrer">
-                  <Download className="h-5 w-5" />
-                  Download CV
-                </a>
-              </Button>
-            </div>
+              <p
+                className="reveal-up mt-7 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+                style={{ animationDelay: "280ms" }}
+              >
+                {personalInfo.heroIntro}
+              </p>
 
-            <div className="mt-6 flex items-center gap-4">
-              <span className="text-sm text-muted-foreground">Find me on</span>
-              {socialLinks.map((s) => {
-                const Icon = s.icon;
-                return (
+              <div
+                className="reveal-up mt-9 flex flex-wrap items-center gap-3"
+                style={{ animationDelay: "360ms" }}
+              >
+                <Magnetic>
+                  <Button size="lg" onClick={booking.open} data-cursor data-cursor-label="Book">
+                    Book a discovery call
+                  </Button>
+                </Magnetic>
+                <Button asChild variant="outline" size="lg">
+                  <a href={personalInfo.resumeLink} target="_blank" rel="noopener noreferrer" data-cursor>
+                    <Download className="h-4 w-4" />
+                    Download CV
+                  </a>
+                </Button>
+              </div>
+
+              <div
+                className="reveal-up mt-8 flex flex-wrap items-center gap-x-5 gap-y-2"
+                style={{ animationDelay: "440ms" }}
+              >
+                {socialLinks.map((s) => (
                   <a
                     key={s.name}
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={s.label}
-                    className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-primary"
+                    className="label-mono inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-primary"
                   >
-                    <Icon className="h-5 w-5" />
+                    {s.label}
+                    <ArrowUpRight className="h-3 w-3" aria-hidden="true" />
                   </a>
-                );
-              })}
+                ))}
+              </div>
             </div>
 
-            <div className="mt-6 flex items-center gap-2 text-sm text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              {personalInfo.location}
-            </div>
-          </motion.div>
+            {/* Signature element: the release manifest / crew badge. */}
+            <div className="reveal-scale lg:col-span-5" style={{ animationDelay: "220ms" }}>
+              <div className="mx-auto w-full max-w-sm overflow-hidden rounded-md border border-border bg-card lg:ml-auto lg:mr-0">
+                <div className="flex items-center justify-between border-b border-border px-5 py-3">
+                  <span className="label-mono text-muted-foreground">Release manifest</span>
+                  <span className="label-mono text-primary">AA-2026</span>
+                </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="relative md:col-span-2"
-          >
-            <motion.div
-              className="relative mx-auto h-72 w-72 sm:h-80 sm:w-80"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              <div className="absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-primary/30 via-accent/20 to-transparent blur-2xl" />
-              <div
-                className="absolute inset-0 rounded-full border-2 border-dashed border-primary/30"
-                style={{ animation: "spin 30s linear infinite" }}
-              />
-              <div className="relative h-full w-full overflow-hidden rounded-full border-4 border-background shadow-2xl ring-2 ring-primary/30">
-                {personalInfo.profileImage ? (
+                <div className="relative aspect-[4/3] overflow-hidden border-b border-border">
                   <Image
                     src={personalInfo.profileImage}
                     alt={personalInfo.name}
                     fill
-                    sizes="(min-width: 768px) 320px, 288px"
-                    className="object-cover object-[center_top]"
-                    style={{ objectPosition: "center 12%" }}
+                    sizes="(min-width: 1024px) 384px, 100vw"
+                    className="object-cover object-[center_18%]"
                     priority
                   />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary via-primary/80 to-accent">
-                    <span className="font-heading text-7xl font-bold tracking-tight text-white drop-shadow-md sm:text-8xl">
-                      {getInitials(personalInfo.name)}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <div className="absolute -bottom-2 -right-2 flex items-center gap-2 rounded-full bg-card px-4 py-2 shadow-lg ring-1 ring-border">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
-                </span>
-                <span className="text-xs font-semibold">Available for hire</span>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
+                </div>
 
-        {/* Stats trust strip */}
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={{
-            hidden: {},
-            show: { transition: { staggerChildren: 0.12, delayChildren: 0.5 } },
-          }}
-          className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4"
-        >
-          {stats.map((s) => {
-            const Icon = s.icon;
-            return (
-              <motion.div
-                key={s.label}
-                variants={{
-                  hidden: { opacity: 0, y: 28, scale: 0.95 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    scale: 1,
-                    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-                  },
-                }}
-                whileHover={{ y: -6, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 320, damping: 24 }}
-                className="group rounded-2xl border border-border bg-card/60 p-5 backdrop-blur transition-shadow hover:shadow-lg"
-              >
-                <Icon className="mb-3 h-6 w-6 text-primary" />
-                <div className="font-heading text-3xl font-bold">{s.value}</div>
-                <div className="mt-1 text-sm text-muted-foreground">{s.label}</div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                <dl className="px-5">
+                  <div className="flex items-baseline justify-between gap-4 py-3">
+                    <dt className="label-mono text-muted-foreground">Engineer</dt>
+                    <dd className="text-right font-heading text-base font-semibold">
+                      {personalInfo.name}
+                    </dd>
+                  </div>
+                  {MANIFEST_ROWS.map((row) => (
+                    <div
+                      key={row.label}
+                      className="flex items-baseline justify-between gap-4 border-t border-border py-3"
+                    >
+                      <dt className="label-mono flex-shrink-0 text-muted-foreground">{row.label}</dt>
+                      <dd className="text-right text-sm text-foreground/90">{row.value}</dd>
+                    </div>
+                  ))}
+                  <div className="flex items-baseline justify-between gap-4 border-t border-border py-3">
+                    <dt className="label-mono text-muted-foreground">Status</dt>
+                    <dd className="label-mono inline-flex items-center gap-2 text-primary">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+                      Open for contracts
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="flex items-center justify-between border-t border-border px-5 py-3">
+                  <div className="flex h-5 items-end gap-[2px]" aria-hidden="true">
+                    {BARCODE.map((w, i) => (
+                      <span
+                        key={i}
+                        className="inline-block h-full bg-foreground/60"
+                        style={{ width: `${w}px` }}
+                      />
+                    ))}
+                  </div>
+                  <span className="label-mono text-muted-foreground">EST. 2020 · LHE</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Proof strip */}
+          <div className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-border pt-8 sm:grid-cols-4">
+            {stats.map((s, i) => (
+              <div key={s.label} className="reveal-up" style={{ animationDelay: `${500 + i * 90}ms` }}>
+                <div className="font-heading text-3xl font-bold sm:text-4xl">
+                  <CountUp value={s.value} />
+                </div>
+                <div className="label-mono mt-2 text-muted-foreground">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

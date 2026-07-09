@@ -1,52 +1,49 @@
-import { CheckCircle2 } from "lucide-react";
-import { AnimatedSection } from "@/components/AnimatedSection";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StaggerGroup, StaggerItem } from "@/components/Motion";
+import { Reveal } from "@/components/motion/Reveal";
 import { personalInfo } from "@/data/personal";
 
-const highlights = [
-  "6+ years shipping mobile apps in React Native, Expo and Flutter",
-  "Healthcare, fintech, telemedicine, VPN, IoT, AI and gifting domain depth",
-  "Owns CI/CD, code signing, OTA / LiveOps and App Store releases",
-  "Mentors mobile engineers and runs technical interviews",
-];
-
 export function About() {
+  const [lede, ...rest] = personalInfo.summary;
+
   return (
-    <AnimatedSection id="about" className="container py-20 scroll-mt-20">
+    <section id="about" className="container scroll-mt-20 py-20 sm:py-24">
       <SectionHeading
-        eyebrow="About"
-        title="Senior mobile engineering, end-to-end"
-        description="I take products from a blank screen to the App Store, owning architecture, releases and reliability."
+        eyebrow="Profile"
+        title="The engineer behind the releases."
+        description="Architecture, releases and reliability, owned end to end from first commit to store review."
       />
 
-      <div className="grid gap-8 md:grid-cols-5">
-        <StaggerGroup
-          className="space-y-4 md:col-span-3"
-          as="div"
-          stagger={0.12}
-        >
-          {personalInfo.summary.map((p, i) => (
-            <StaggerItem key={i} direction="left">
-              <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">{p}</p>
-            </StaggerItem>
+      <div className="grid gap-12 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <Reveal>
+            <p className="text-lg leading-relaxed text-foreground/90 sm:text-xl">{lede}</p>
+          </Reveal>
+          {rest.map((p, i) => (
+            <Reveal key={i} delay={0.08 * (i + 1)}>
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground">{p}</p>
+            </Reveal>
           ))}
-        </StaggerGroup>
+        </div>
 
-        <StaggerItem className="md:col-span-2" direction="right">
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-            <h3 className="font-heading text-lg font-semibold">What I bring to the table</h3>
-            <StaggerGroup as="ul" className="mt-4 space-y-3" stagger={0.08} delay={0.15}>
-              {highlights.map((h) => (
-                <StaggerItem key={h} as="li" className="flex gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                  <span className="text-sm text-foreground/80">{h}</span>
-                </StaggerItem>
+        <Reveal className="lg:col-span-5" variant="side" delay={0.1}>
+          <div className="rounded-md border border-border bg-card">
+            <div className="border-b border-border px-6 py-4">
+              <span className="label-mono text-muted-foreground">What you get</span>
+            </div>
+            <ul className="px-6 py-2">
+              {personalInfo.highlights.map((h) => (
+                <li
+                  key={h}
+                  className="flex gap-3 border-b border-border/60 py-4 text-sm leading-relaxed text-foreground/85 last:border-b-0"
+                >
+                  <span className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 bg-primary" aria-hidden="true" />
+                  {h}
+                </li>
               ))}
-            </StaggerGroup>
+            </ul>
           </div>
-        </StaggerItem>
+        </Reveal>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }

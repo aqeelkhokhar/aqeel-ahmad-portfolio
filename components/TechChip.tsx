@@ -4,7 +4,7 @@ export function TechChip({ children, className }: { children: React.ReactNode; c
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full bg-muted px-3 py-1 text-xs font-medium text-foreground/80 ring-1 ring-inset ring-border/60",
+        "inline-flex items-center rounded-sm border border-border px-2 py-0.5 font-mono text-[11px] text-muted-foreground",
         className
       )}
     >

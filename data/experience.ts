@@ -2,6 +2,21 @@ import type { Job } from "./types";
 
 export const experience: Job[] = [
   {
+    title: "Full-Stack Engineer (Contract)",
+    company: "Confidential Clients",
+    location: "Remote · Gulf Region",
+    type: "Contract",
+    period: "2023 to Present",
+    current: true,
+    bullets: [
+      "**Bilingual marketing site:** Built an industrial trading company's website (Gulf region) from scratch with Next.js 16, React 19 and Tailwind CSS: English/Arabic RTL via next-intl, a CSS-first animation system that paints before hydration, static export to S3, and a full technical SEO stack (JSON-LD, sitemap, hreflang) with Lighthouse-green Core Web Vitals.",
+      "**Patient web portal:** Delivered the customer-facing web platform for a Saudi healthcare clinics group: Next.js 15 App Router with Turbopack, Zustand state, Radix UI primitives, bilingual EN/AR routing and booking, WhatsApp and email conversion flows across 8+ service routes.",
+      "**Admin dashboard & CRM:** Built the clinics' operations panel spanning 22+ modules: role-based access control, doctors, branches, bookings on a calendar view, content management (blogs, offers, testimonials, landing pages), Chart.js analytics and Google Maps, with Redux Toolkit + Saga, TanStack Query, Ant Design, i18next RTL, Jest + Cypress and Docker.",
+      "**Backend engineering:** Actively build and extend NestJS + PostgreSQL/TypeORM APIs powering these platforms: JWT/Passport auth, Stripe payments, Redis caching, S3 presigned uploads, Socket.io real-time messaging, rate limiting and Swagger-documented endpoints.",
+      "**Delivery discipline:** Enforce quality gates with Husky and CommitLint, code review, performance budgets and Sentry monitoring across every codebase.",
+    ],
+  },
+  {
     title: "Team Lead, Senior Mobile Engineer",
     company: "Pikes Soft",
     location: "Lahore, Pakistan",

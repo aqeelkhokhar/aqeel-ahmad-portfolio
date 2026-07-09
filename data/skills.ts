@@ -10,6 +10,7 @@ import {
   Bug,
   Wand2,
   Brain,
+  Globe,
 } from "lucide-react";
 import type { Skill } from "./types";
 
@@ -70,6 +71,22 @@ export const skills: Skill[] = [
     ],
   },
   {
+    category: "Web & Frontend",
+    icon: Globe,
+    items: [
+      "Next.js (App Router)",
+      "React 18/19",
+      "Tailwind CSS",
+      "shadcn/ui & Radix",
+      "Ant Design",
+      "Zustand",
+      "Redux Toolkit + Saga",
+      "next-intl / i18next (EN/AR RTL)",
+      "SEO & Core Web Vitals",
+      "Framer Motion",
+    ],
+  },
+  {
     category: "APIs & Backend",
     icon: Plug,
     items: [
@@ -79,8 +96,11 @@ export const skills: Skill[] = [
       "Node.js",
       "NestJS",
       "Express.js",
+      "PostgreSQL / TypeORM",
+      "Redis",
       "MongoDB",
       "SQLite",
+      "Swagger / OpenAPI",
     ],
   },
   {

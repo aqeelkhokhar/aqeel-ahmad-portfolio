@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type MotionProps } from "framer-motion";
+import { m, type MotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Props = React.HTMLAttributes<HTMLElement> &
@@ -10,7 +10,7 @@ type Props = React.HTMLAttributes<HTMLElement> &
 
 export function AnimatedSection({ className, delay = 0, children, ...props }: Props) {
   return (
-    <motion.section
+    <m.section
       initial={{ opacity: 0, y: 48, scale: 0.98 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-12% 0px -12% 0px" }}
@@ -19,6 +19,6 @@ export function AnimatedSection({ className, delay = 0, children, ...props }: Pr
       {...props}
     >
       {children}
-    </motion.section>
+    </m.section>
   );
 }

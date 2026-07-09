@@ -1,43 +1,41 @@
-import { AnimatedSection } from "@/components/AnimatedSection";
+import { Fragment } from "react";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StaggerGroup, StaggerItem } from "@/components/Motion";
-import { TechChip } from "@/components/TechChip";
-import { Card, CardContent } from "@/components/ui/card";
+import { Reveal } from "@/components/motion/Reveal";
 import { skills } from "@/data/skills";
 
+// Spec-sheet layout: category in the mono "manifest voice" on the left,
+// tools as plain running text on the right. No chip soup.
 export function Skills() {
   return (
-    <AnimatedSection id="skills" className="container py-20 scroll-mt-20">
+    <section id="skills" className="container scroll-mt-20 py-20 sm:py-24">
       <SectionHeading
-        eyebrow="Skills"
-        title="The stack I build with daily"
-        description="Production-grade tools I've shipped in fintech, healthcare and enterprise apps."
+        eyebrow={`Spec sheet · ${skills.length} categories`}
+        title="The stack, in full."
+        description="Every tool here has shipped to production, nothing listed from a tutorial."
       />
 
-      <StaggerGroup className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" stagger={0.07}>
-        {skills.map((group) => {
-          const Icon = group.icon;
-          return (
-            <StaggerItem key={group.category} hover>
-              <Card className="h-full transition-shadow hover:shadow-lg">
-                <CardContent className="p-5">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <Icon className="h-5 w-5" />
-                    </span>
-                    <h3 className="font-heading text-base font-semibold">{group.category}</h3>
-                  </div>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <TechChip key={item}>{item}</TechChip>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </StaggerItem>
-          );
-        })}
-      </StaggerGroup>
-    </AnimatedSection>
+      <Reveal>
+        <dl className="border-y border-border">
+          {skills.map((group) => (
+            <div
+              key={group.category}
+              className="grid gap-y-1 border-b border-border py-4 last:border-b-0 md:grid-cols-12 md:gap-x-8"
+            >
+              <dt className="label-mono pt-1 text-muted-foreground md:col-span-4 lg:col-span-3">
+                {group.category}
+              </dt>
+              <dd className="text-sm leading-relaxed text-foreground/85 md:col-span-8 lg:col-span-9">
+                {group.items.map((item, i) => (
+                  <Fragment key={item}>
+                    {i > 0 && <span className="mx-2 text-muted-foreground/60">·</span>}
+                    <span className="inline-block">{item}</span>
+                  </Fragment>
+                ))}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
+    </section>
   );
 }

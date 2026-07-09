@@ -6,11 +6,13 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const isDark = mounted && theme === "dark";
+  // resolvedTheme (not theme): with enableSystem the stored value can be
+  // "system", which made the first toggle click a no-op.
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <Button

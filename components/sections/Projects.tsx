@@ -1,15 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import { ExternalLink, Github, ArrowUpRight, Sparkles, Zap, Star } from "lucide-react";
-import { AnimatedSection } from "@/components/AnimatedSection";
+import { ExternalLink, Github, ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/SectionHeading";
-import { StaggerGroup, StaggerItem } from "@/components/Motion";
+import { Reveal } from "@/components/motion/Reveal";
 import { TechChip } from "@/components/TechChip";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -17,157 +13,123 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { projects } from "@/data/projects";
+import type { Project } from "@/data/types";
 import { renderBoldHeading } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+
+// Release IDs run newest-first: the top row is R-<total>, the last is R-001.
+// The numbering encodes the real count of shipped products.
+const releaseId = (index: number) => `R-${String(projects.length - index).padStart(3, "0")}`;
+
+const platformOf = (p: Project) =>
+  p.technologies.some((t) => /flutter|react native/i.test(t)) ? "Mobile" : "Web";
+
+function DialogSectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <h4 className="label-mono mb-3 flex items-center gap-2 text-muted-foreground">
+      <span className="h-1.5 w-1.5 bg-primary" aria-hidden="true" />
+      {children}
+    </h4>
+  );
+}
 
 export function Projects() {
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const open = projects.find((p) => p.slug === openSlug) ?? null;
 
   return (
-    <AnimatedSection id="projects" className="container py-20 scroll-mt-20">
+    <section id="projects" className="container scroll-mt-20 py-20 sm:py-24">
       <SectionHeading
-        eyebrow="Selected work"
-        title="Projects that shipped"
-        description="A snapshot of mobile products I've architected, built, and released to real users."
+        eyebrow={`Release history · ${projects.length} shipped since 2020`}
+        title="Every release, on record."
+        description="Real products in production, with client names withheld where contracts require it. Open any entry for the full case study."
       />
 
-      <StaggerGroup className="grid gap-6 md:grid-cols-2" stagger={0.08}>
-        {projects.map((project) => (
-          <StaggerItem key={project.slug} hover className="h-full">
-            <Card
-              className="group relative flex h-full flex-col overflow-hidden transition-shadow hover:shadow-2xl"
-            >
-            <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-muted">
-              {project.image ? (
-                <Image
-                  src={project.image}
-                  alt={`${project.title} preview`}
-                  fill
-                  sizes="(min-width: 768px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              ) : (
-                <div className="grid h-full place-items-center">
-                  <Sparkles className="h-12 w-12 text-primary/40" />
+      <div className="border-t border-border">
+        {projects.map((project, index) => {
+          const featured = Boolean(project.featured);
+          return (
+            <Reveal key={project.slug} delay={Math.min(index, 4) * 0.05}>
+              <button
+                onClick={() => setOpenSlug(project.slug)}
+                className="group grid w-full grid-cols-1 items-start gap-x-6 gap-y-3 border-b border-border px-3 py-7 text-left transition-colors hover:bg-muted/50 md:grid-cols-12 md:px-4"
+                aria-label={`Open case study: ${project.title}`}
+              >
+                <div className="md:col-span-2">
+                  <div
+                    className={cn(
+                      "font-mono text-xs font-medium tracking-wider",
+                      featured ? "text-primary" : "text-muted-foreground"
+                    )}
+                  >
+                    {releaseId(index)}
+                    {featured && <span className="ml-2">★</span>}
+                  </div>
+                  <div className="mt-1 font-mono text-[11px] text-muted-foreground/80">
+                    {project.period}
+                  </div>
                 </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/0 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-              {project.featured && (
-                <Badge
-                  variant="accent"
-                  className="absolute left-4 top-4 gap-1"
-                >
-                  <Star className="h-3 w-3" /> Featured
-                </Badge>
-              )}
-            </div>
 
-            <div className="flex flex-1 flex-col p-5">
-              <div className="flex items-start justify-between gap-3">
-                <h3 className="font-heading text-lg font-bold leading-tight">
-                  {project.title}
-                </h3>
-                <span className="whitespace-nowrap rounded-full bg-muted px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
-                  {project.period}
-                </span>
-              </div>
-              <div className="mt-1 text-sm font-medium text-primary">
-                {project.role} · {project.company}
-              </div>
-              <p className="mt-3 line-clamp-2 text-sm text-muted-foreground">
-                {project.description}
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {project.technologies.slice(0, 4).map((t) => (
-                  <TechChip key={t}>{t}</TechChip>
-                ))}
-                {project.technologies.length > 4 && (
-                  <TechChip>+{project.technologies.length - 4}</TechChip>
-                )}
-              </div>
-
-              <div className="mt-5 flex items-center justify-between border-t border-border pt-4">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setOpenSlug(project.slug)}
-                  className="text-primary hover:text-primary"
-                >
-                  View case study
-                  <ArrowUpRight className="h-4 w-4" />
-                </Button>
-                <div className="flex items-center gap-1">
-                  {project.githubUrl && (
-                    <Button asChild variant="ghost" size="icon">
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub repo"
-                      >
-                        <Github className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  )}
-                  {project.liveUrl && (
-                    <Button asChild variant="ghost" size="icon">
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Live"
-                      >
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  )}
+                <div className="md:col-span-7">
+                  <h3 className="font-heading text-xl font-semibold tracking-tight transition-colors group-hover:text-primary sm:text-2xl">
+                    {project.title}
+                  </h3>
+                  <div className="label-mono mt-1.5 text-muted-foreground">
+                    {project.role} · {project.company}
+                  </div>
+                  <p className="mt-2.5 max-w-2xl text-sm leading-relaxed text-muted-foreground md:line-clamp-2">
+                    {project.description}
+                  </p>
                 </div>
-              </div>
-            </div>
-            </Card>
-          </StaggerItem>
-        ))}
-      </StaggerGroup>
+
+                <div className="flex items-start justify-between gap-3 md:col-span-3 md:flex-col md:items-end">
+                  <span className="label-mono rounded-sm border border-border px-2 py-1 text-muted-foreground">
+                    {platformOf(project)}
+                  </span>
+                  <span className="hidden text-right font-mono text-[11px] leading-relaxed text-muted-foreground/80 md:block">
+                    {project.technologies.slice(0, 3).join(" · ")}
+                  </span>
+                  <ArrowUpRight className="h-5 w-5 text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary" />
+                </div>
+              </button>
+            </Reveal>
+          );
+        })}
+      </div>
 
       <Dialog open={open !== null} onOpenChange={(o) => !o && setOpenSlug(null)}>
         <DialogContent>
           {open && (
             <>
               <DialogHeader>
-                <DialogTitle>{open.title}</DialogTitle>
-                <div className="mt-1 text-sm text-muted-foreground">
-                  {open.role} · {open.company} · {open.period}
+                <div className="label-mono flex items-center gap-3 text-muted-foreground">
+                  <span className="text-primary">
+                    {releaseId(projects.findIndex((p) => p.slug === open.slug))}
+                  </span>
+                  {open.period} · {platformOf(open)}
+                </div>
+                <DialogTitle className="font-heading text-2xl font-semibold tracking-tight">
+                  {open.title}
+                </DialogTitle>
+                <div className="text-sm text-muted-foreground">
+                  {open.role} · {open.company}
                 </div>
               </DialogHeader>
 
-              {open.image && (
-                <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border">
-                  <Image
-                    src={open.image}
-                    alt={`${open.title} preview`}
-                    fill
-                    sizes="(min-width: 768px) 768px, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              )}
-
-              <p className="text-base leading-relaxed text-foreground/90">
-                {open.description}
-              </p>
+              <p className="text-base leading-relaxed text-foreground/90">{open.description}</p>
 
               {open.highlights.length > 0 && (
                 <section>
-                  <h4 className="mb-3 inline-flex items-center gap-2 font-heading text-lg font-bold">
-                    <Sparkles className="h-4 w-4 text-primary" /> Highlights
-                  </h4>
+                  <DialogSectionLabel>Highlights</DialogSectionLabel>
                   <ul className="space-y-2.5">
                     {open.highlights.map((h, i) => {
                       const bold = renderBoldHeading(h);
                       return (
-                        <li key={i} className="flex gap-2.5 text-sm">
-                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+                        <li key={i} className="flex gap-3 text-sm leading-relaxed">
+                          <span
+                            className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 bg-primary"
+                            aria-hidden="true"
+                          />
                           {bold ? (
                             <span className="text-foreground/80">
                               <span className="font-semibold text-foreground">{bold.heading}:</span>{" "}
@@ -185,13 +147,14 @@ export function Projects() {
 
               {open.impacts.length > 0 && (
                 <section>
-                  <h4 className="mb-3 inline-flex items-center gap-2 font-heading text-lg font-bold">
-                    <Zap className="h-4 w-4 text-accent" /> Impact
-                  </h4>
+                  <DialogSectionLabel>Impact</DialogSectionLabel>
                   <ul className="space-y-2.5">
                     {open.impacts.map((imp, i) => (
-                      <li key={i} className="flex gap-2.5 text-sm">
-                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent" />
+                      <li key={i} className="flex gap-3 text-sm leading-relaxed">
+                        <span
+                          className="mt-[7px] h-1.5 w-1.5 flex-shrink-0 bg-primary"
+                          aria-hidden="true"
+                        />
                         <span className="text-foreground/80">{imp}</span>
                       </li>
                     ))}
@@ -200,7 +163,7 @@ export function Projects() {
               )}
 
               <section>
-                <h4 className="mb-3 font-heading text-lg font-bold">Tech stack</h4>
+                <DialogSectionLabel>Stack</DialogSectionLabel>
                 <div className="flex flex-wrap gap-2">
                   {open.technologies.map((t) => (
                     <TechChip key={t}>{t}</TechChip>
@@ -211,7 +174,7 @@ export function Projects() {
               {(open.liveUrl || open.githubUrl) && (
                 <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4">
                   {open.liveUrl && (
-                    <Button asChild variant="gradient">
+                    <Button asChild>
                       <a href={open.liveUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" /> View project
                       </a>
@@ -230,7 +193,6 @@ export function Projects() {
           )}
         </DialogContent>
       </Dialog>
-    </AnimatedSection>
+    </section>
   );
 }
-
