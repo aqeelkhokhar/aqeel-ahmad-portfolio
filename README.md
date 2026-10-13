@@ -1,5 +1,9 @@
 # Aqeel Ahmad, Portfolio
 
+[![CI](https://github.com/aqeelkhokhar/aqeel-ahmad-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/aqeelkhokhar/aqeel-ahmad-portfolio/actions/workflows/ci.yml)
+![Next.js](https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)
+
 Source for https://aqeel-ahmad-portfolio.vercel.app/, the portfolio of Aqeel Ahmad, Senior Mobile Engineer working in React Native and Flutter.
 
 The site presents shipped apps, services, experience and a way to get in touch. It is a static, content driven Next.js site, so every section reads from a typed data file and there is no backend to run.
