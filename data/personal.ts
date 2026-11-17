@@ -17,5 +17,5 @@ export const personalInfo: PersonalInfo = {
   availability: "Open to remote contracts and senior mobile lead roles",
   resumeLink: "/resume.pdf",
   profileImage: "/images/avatar.png",
-  bookingUrl: "https://cal.com/aqeel-ahmad",
+  bookingUrl: "https://cal.com/aqeelahmad/intro",
 };
