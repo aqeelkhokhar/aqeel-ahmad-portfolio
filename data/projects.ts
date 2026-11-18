@@ -2,6 +2,241 @@ import type { Project } from "./types";
 
 export const projects: Project[] = [
   {
+    slug: "sales-crm-platform",
+    title: "Sales CRM Platform",
+    period: "Sep 2026 to Present",
+    description:
+      "Sales CRM with a LinkedIn outreach pipeline, built end to end: a Next.js client and a NestJS API, with English and Arabic (RTL) and accessibility checks on every route.",
+    role: "Full-Stack Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Outreach pipeline:** List and board views with URL-synced filters, stats tiles, cursor pagination, add and edit prospect, record reply, follow up, reassign and reopen.",
+      "**Drag and drop:** Stage moves with multi-select and undo (dnd-kit), plus a contacts board and list and role-based redirects.",
+      "**Secure API layer:** Passport JWT in an HttpOnly cookie with CSRF protection, a single retry on a stale token, Redis rate limits, helmet, structured logging and Swagger docs.",
+      "**Backend:** NestJS API with 8 modules (auth, team members, tenants, prospects, contacts, deals, comments, lookups), 38 endpoints, 9 entities and 10 migrations.",
+      "**Quality gates:** Playwright accessibility checks (WCAG 2.2 AA) on every route and Arabic RTL, Vitest and React Testing Library, and a first-load JavaScript budget per route in CI.",
+    ],
+    impacts: [
+      "Role-based access from one permission catalogue keeps sales reps out of admin pages.",
+      "Accessibility and Arabic RTL are enforced in CI, not left to manual checks.",
+    ],
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS 4",
+      "Zustand",
+      "next-intl",
+      "NestJS",
+      "PostgreSQL",
+      "Redis",
+      "Vitest",
+      "Playwright",
+    ],
+  },
+  {
+    slug: "multi-tenant-sales-platform",
+    title: "Multi-Tenant Sales Platform",
+    period: "Sep 2026 to Present",
+    description:
+      "A multi-tenant sales operations platform rebuilt from a Next.js 14 monolith into a NestJS 12 API and a Next.js 16 frontend, with access control by role and by tenant module.",
+    role: "Full-Stack Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Rebuild:** Replaced the monolith with a NestJS 12 API and a Next.js 16 frontend, migrated as 136 tickets with written decision records.",
+      "**Frontend:** 20 pages covering sign-in, forgot and reset password and invite acceptance, manager team, profiles and portal views, admin users, configuration and audit, and a platform tenant area with a dnd-kit Kanban board and dark mode.",
+      "**API:** 13 modules (auth, tenants, teams, roles and permissions, campaigns, job portals, audit, mail), 61 endpoints, 13 entities and 10 migrations.",
+      "**Tenant security:** Tenant ID on every row, a token version in the JWT for revocation and SHA-256 hashed reset tokens.",
+      "**Testing:** 77 Vitest unit test files and 9 Playwright specs (39 tests), plus 62 unit and 21 end-to-end backend specs.",
+    ],
+    impacts: [
+      "Tenant isolation is built into every row and every token.",
+      "The migration ran as a tracked set of tickets, so each decision is on record.",
+    ],
+    technologies: [
+      "Next.js 16",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "NestJS 12",
+      "PostgreSQL",
+      "dnd-kit",
+      "Vitest",
+      "Playwright",
+    ],
+  },
+  {
+    slug: "hr-payroll-platform-console",
+    title: "HR and Payroll SaaS Platform Console",
+    period: "Sep 2026 to Oct 2026",
+    description:
+      "The platform admin console of a multi-tenant HR and payroll SaaS: platform-level audit, tenant provisioning and a hardened API client.",
+    role: "Frontend Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Platform audit:** A searchable, sortable table of platform-level activity (tenant suspensions, module toggles, template edits) that no single tenant audit view can show, newest first, with an action filter, colour-coded badges, empty states and screen-reader labels.",
+      "**Error tracking:** A global error boundary that reports client crashes to Sentry with environment and release tags and shows users a reference code and a Try again button.",
+      "**Resilient requests:** A typed 20-second timeout on every API request using AbortSignal, including token refresh, so a stalled API shows a clear error instead of a hung screen.",
+      "**Tests:** Vitest tests for the audit screen, the error boundary, the error tracker and the request timeout.",
+    ],
+    impacts: [
+      "Platform admins can see every cross-tenant action in one place.",
+      "A stalled API produces a clear error and a reference code instead of a frozen screen.",
+    ],
+    technologies: [
+      "Next.js 15",
+      "React",
+      "TypeScript",
+      "Sentry",
+      "Vitest",
+    ],
+  },
+  {
+    slug: "ai-training-health-platform",
+    title: "Healthcare Platform for AI Agent Training",
+    period: "Jul 2026 to Oct 2026",
+    description:
+      "Core modules of a Next.js 16 and React 19 replica of a US electronic health record system that serves as a training and testing environment for AI agents.",
+    role: "Frontend Engineer",
+    company: "Pikes Soft (US client)",
+    image: "",
+    highlights: [
+      "**Billing:** The claims worklist and My Claims queue, claim resubmittal, split and void, bulk status changes with CSV export, statement holds, collection management and a deleted-claims viewer.",
+      "**Referrals:** A referral status model with sub-statuses, lock, addendum and reopen, insurance authorization and referral visit accounting.",
+      "**Clinical:** An inbound refill-request queue with approve, deny and replace, a clinical settings tab and progress-note sections for histories, examination and coding.",
+      "**Scheduling:** A double-click guard that stops double bookings, drag recovery on the schedule grid and an open-slot menu matched to the reference product.",
+      "**Security and reliability:** Session checks on every server action with an automated guard test, redirects for expired sessions, save failures reported to the user and Playwright end-to-end specs.",
+    ],
+    impacts: [
+      "Every server action is covered by a session check and an automated guard test.",
+      "Critical billing, referral and scheduling flows are covered by end-to-end specs.",
+    ],
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Playwright",
+    ],
+  },
+  {
+    slug: "clinic-group-patient-app",
+    title: "Clinic Group Patient App",
+    period: "Jun 2026 to Present",
+    description:
+      "Expo patient app for a Saudi clinic group, live on Google Play, with its own NestJS backend: booking, video visits, family profiles and a loyalty wallet in English and Arabic.",
+    role: "Full-Stack Mobile Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Booking:** Sign-up with email verification and OTP login, a booking wizard (service, branch, doctor, slot, for whom), reschedule and a doctors directory.",
+      "**Video visits:** LiveKit video visits with teleconsult requests, and a doctor portal with a day view, appointments and video calls.",
+      "**Family and loyalty:** Family and dependent profiles, a loyalty wallet with referrals, a personalisation quiz and treatment packages with a session tracker.",
+      "**Localisation and platform:** English and Arabic with RTL and Hijri dates, RTK Query with OpenAPI codegen, MMKV, NativeWind, push through FCM and APNs, account deletion and notification settings.",
+      "**Backend:** A mobile backend in NestJS 11 and Prisma with 25 controllers, 22 models, JWT, Swagger, LiveKit tokens, AWS S3 presigned uploads and CI and deploy workflows.",
+    ],
+    impacts: [
+      "Live on Google Play in English and Arabic (RTL).",
+      "Typed API clients are generated from the OpenAPI contract, so the app and backend stay in step.",
+    ],
+    technologies: [
+      "Expo",
+      "Expo Router",
+      "NativeWind",
+      "RTK Query",
+      "MMKV",
+      "LiveKit",
+      "NestJS",
+      "Prisma",
+      "PostgreSQL",
+    ],
+  },
+  {
+    slug: "real-estate-field-agent-crm",
+    title: "Real Estate Field Agent CRM App",
+    period: "May 2026 to Present",
+    description:
+      "Field agent CRM for a Gulf real estate brokerage, live on Android: the app foundation and the main functionality across 12 modules.",
+    role: "Senior Mobile Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Leads and tasks:** Leads with filters, activity, viewings, comments and attachments, stage moves and SLA timers, plus a pipeline and tasks.",
+      "**Attendance and inventory:** Geofenced clock in and out, leave balances and requests, mock-location rejection, inventory search with a photo gallery, an employee directory and deep links.",
+      "**Auth and messaging:** OTP login, forced password change and 401 token refresh with a request queue, English and Arabic with plural forms, and Firebase push with Notifee.",
+      "**Code health:** Removed every any type, moved 169 hard-coded colours into theme tokens, added a global error handler, modular Crashlytics, large-font accessibility and list and photo performance.",
+      "**Quality gates:** Zero-warning lint, typecheck and tests in CI with EAS build profiles.",
+    ],
+    impacts: [
+      "Live on Android for a field sales team.",
+      "Quality gates in CI keep lint, typecheck and tests clean on every change.",
+    ],
+    technologies: [
+      "Expo",
+      "TypeScript",
+      "Redux Toolkit",
+      "TanStack Query",
+      "i18next",
+      "Firebase",
+      "Notifee",
+      "Crashlytics",
+      "EAS",
+    ],
+  },
+  {
+    slug: "civic-education-app",
+    title: "Civic Education App",
+    period: "Apr 2026 to Jul 2026",
+    description:
+      "Expo app for a civic education platform: about 50 screens across 10 modules, with courses, quizzes and a leaderboard.",
+    role: "Mobile Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Learning:** Courses with quizzes and certificates, articles and bookmarks, a leaderboard and badges.",
+      "**Civic content:** A leaders directory (governors, senators, presidency) and a team builder with scenario simulation.",
+      "**Community and support:** A civic guide chat, nominations, support tickets, an offline banner, push notifications and secure storage.",
+    ],
+    impacts: [
+      "About 50 screens across 10 modules delivered in about three months.",
+      "Offline banner and secure storage keep the app usable and safe on weak connections.",
+    ],
+    technologies: [
+      "Expo",
+      "Expo Router",
+      "NativeWind",
+      "Redux Toolkit",
+      "RTK Query",
+    ],
+  },
+  {
+    slug: "isp-self-service-app",
+    title: "Internet Provider Self-Service App",
+    period: "2026",
+    description:
+      "Customer self-service app for an internet provider: balance and package, usage graphs, plan upgrades and invoice payments.",
+    role: "Mobile Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Account:** A dashboard with balance and package, usage graphs and plan upgrades.",
+      "**Billing:** Paid and unpaid invoices with date filters and JazzCash payments.",
+      "**Support:** Complaint registration and history, Wi-Fi password change, notifications and Firebase push.",
+    ],
+    impacts: [
+      "Customers manage their plan, bills and complaints from one app.",
+      "In-app payments through JazzCash.",
+    ],
+    technologies: [
+      "React Native",
+      "Firebase",
+      "JazzCash",
+    ],
+  },
+  {
     slug: "gulf-industrial-website",
     title: "Industrial Trading Company Website",
     period: "2026",
@@ -101,8 +336,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "hansel-gift",
-    title: "Hansel Gift App",
+    slug: "fintech-gifting-app",
+    title: "FinTech Gifting App",
     period: "Jan 2024 to Present",
     description:
       "Cross-platform gifting app with personalised, media-rich experiences. Virtual cards, Lottie animations, gesture interactions, instant, scheduled and link-based gift delivery, plus end-to-end payment flows.",
@@ -135,8 +370,65 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "ihide-vpn",
-    title: "IHide VPN App",
+    slug: "gifting-web-storefront",
+    title: "Gifting Platform Web Storefront",
+    period: "Jan 2024 to Present",
+    description:
+      "Public storefront for a FinTech gifting product, built on the Next.js App Router and managed in a headless CMS so the client team publishes pages without code changes.",
+    role: "Frontend Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Storefront:** Next.js App Router with SSR, Server Components and Route Handlers for the How It Works, Gifting, About, Blog and app download pages.",
+      "**Headless CMS:** Sanity schemas where pages are assembled from reusable section blocks, with validation rules for required fields and length limits.",
+      "**Content layer:** GROQ queries and Sanity TypeGen types shared with the frontend.",
+    ],
+    impacts: [
+      "The client team publishes pages without code changes.",
+      "Typed content is shared between the CMS and the frontend.",
+    ],
+    technologies: [
+      "Next.js App Router",
+      "React",
+      "TypeScript",
+      "Sanity",
+      "GROQ",
+      "Sanity TypeGen",
+    ],
+  },
+  {
+    slug: "biomedical-operations-web-app",
+    title: "Biomedical Operations Web App",
+    period: "Jan 2024 to Aug 2024",
+    description:
+      "Web app for the biomedical engineering operations of a Saudi hospital group: 20 pages with role-based access and master-data management.",
+    role: "Frontend Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Access flow:** Sign-up, sign-in, OTP verification with a two-minute countdown and resend, forgot and reset password, social login, a profile page and automatic token refresh.",
+      "**Roles:** A role editor with a permission checklist and select-all that sends only the permissions added or removed, plus user management with search and filters.",
+      "**Permission-driven interface:** Modules, table columns and action menus appear only when the user holds the matching permission.",
+      "**Master data:** 12 modules (site, building, floor, area, department, category, sub-category, leaf category, manufacturer, model, preventive maintenance and ticket priority), each with a paginated table, search, filters, create and edit modals and an active switch.",
+      "**Engineering:** Jest tests for sign-in and sign-up, Docker, lazy loading and clear backend success and error messages shown as toasts.",
+    ],
+    impacts: [
+      "Users only see the modules, columns and actions they are permitted to use.",
+      "Role changes send only the permissions added or removed.",
+    ],
+    technologies: [
+      "Next.js 13",
+      "Ant Design 5",
+      "Redux Toolkit",
+      "React Query",
+      "axios",
+      "Jest",
+      "Docker",
+    ],
+  },
+  {
+    slug: "consumer-vpn-app",
+    title: "Consumer VPN App",
     period: "Feb 2026 to Apr 2026",
     description:
       "React Native VPN app. Fixed critical analytics integration, cross-platform event accuracy and subscription stability for production iOS and Android releases.",
@@ -163,8 +455,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "pangea-provider",
-    title: "Pangea Provider",
+    slug: "healthcare-provider-app",
+    title: "Healthcare Provider App",
     period: "Nov 2025 to Feb 2026",
     description:
       "Flutter healthcare app for providers. Appointments, consultations, prescriptions and EMR workflows. Hardened API integration, fixed production bugs and shipped App Store and Play Store releases.",
@@ -191,8 +483,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "virtual-world",
-    title: "Virtual World",
+    slug: "telemedicine-app",
+    title: "Telemedicine App",
     period: "Jan 2026 to Apr 2026",
     description:
       "Flutter telemedicine app. Migrated for Play Store and App Store compliance (Android API 34), upgraded dependencies, fixed build issues and enhanced Agora video calling.",
@@ -249,8 +541,62 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "trusted-air",
-    title: "Trusted Air",
+    slug: "rn-highlight-text-view",
+    title: "react-native-highlight-text-view",
+    period: "2025 to 2026",
+    description:
+      "Open source native text input for React Native with a rounded highlight behind every line, in the Instagram and TikTok caption style.",
+    role: "Author",
+    company: "Open source (MIT)",
+    image: "",
+    githubUrl: "https://github.com/aqeelkhokhar/react-native-highlight-text",
+    liveUrl: "https://www.npmjs.com/package/react-native-highlight-text-view",
+    highlights: [
+      "**Native views:** Kotlin and Objective-C++ views on the React Native New Architecture.",
+      "**Parity and tests:** Android matches iOS pixel for pixel, with Jest and Maestro end-to-end tests and screenshot diffs in CI.",
+      "**Reach:** Published on npm and listed in the React Native Directory.",
+    ],
+    impacts: [
+      "Published and maintained as a public MIT library.",
+      "Screenshot diffs in CI catch visual regressions between platforms.",
+    ],
+    technologies: [
+      "React Native",
+      "Kotlin",
+      "Objective-C++",
+      "New Architecture",
+      "Jest",
+      "Maestro",
+    ],
+  },
+  {
+    slug: "rn-layout-transfarmer",
+    title: "react-native-layout-transfarmer",
+    period: "2026",
+    description:
+      "Open source layout scaling library for React Native: design once, scale everywhere.",
+    role: "Author",
+    company: "Open source (MIT)",
+    image: "",
+    githubUrl: "https://github.com/aqeelkhokhar/react-native-layout-transfarmer",
+    liveUrl: "https://www.npmjs.com/package/react-native-layout-transfarmer",
+    highlights: [
+      "**Scaling:** scale, verticalScale and moderateScale helpers and a rotation-aware useLayout hook for foldables and split screen, plus canvas transform maths.",
+      "**Footprint and quality:** Zero dependencies, under 4 kB, a 95% coverage gate in CI and a live web demo.",
+    ],
+    impacts: [
+      "Published on npm as version 1.0.0 under the MIT licence.",
+      "Zero dependencies and a coverage gate keep it safe to adopt.",
+    ],
+    technologies: [
+      "React Native",
+      "TypeScript",
+      "Jest",
+    ],
+  },
+  {
+    slug: "iot-air-quality-app",
+    title: "IoT Air Quality App",
     period: "May 2025 to Aug 2025",
     description:
       "Flutter app for indoor air quality monitoring across offices, gyms and large venues. Real-time sensor data, alerts, threshold management and multi-location dashboards on AWS IoT.",
@@ -276,8 +622,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "courtpro",
-    title: "courtPro",
+    slug: "sports-booking-app",
+    title: "Sports Facility Booking App",
     period: "Feb 2025 to May 2025",
     description:
       "Flutter sports facility booking app. Real-time reservations, secure Stripe payments and direct comms between players and venue managers.",
@@ -330,8 +676,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "almana-patient",
-    title: "Almana Patient App",
+    slug: "hospital-patient-app",
+    title: "Hospital Group Patient App",
     period: "Sep 2021 to Dec 2023",
     description:
       "Feature-rich patient app. Appointments, home and hospital visits, teleconsultation, online payments, invoices, lab results, diagnosis history and medication refill workflows.",
@@ -359,8 +705,38 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "almana-maintenance",
-    title: "Almana Maintenance App",
+    slug: "hospital-patient-app-cms",
+    title: "Hospital Patient-App CMS",
+    period: "Sep 2021 to Dec 2023",
+    description:
+      "React CMS that hospital staff use to run a patient app: 21 management pages with list, create and edit flows, image upload and parallel English and Arabic fields.",
+    role: "Software Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Signed API:** Every request is signed with HMAC-SHA256 plus a nonce and timestamp to block replays, expired tokens refresh automatically and replay the original request, and an invalid session forces a clean sign-in.",
+      "**Access control:** Role-based access for 10 staff roles, enforced on routes and in a side menu filtered per user, with a landing page per role and protection against open redirects.",
+      "**Support inbox:** A real-time technical support inbox over WebSockets (Socket.IO) with infinite scroll, search, optimistic sending and seen-by-admin tracking.",
+      "**Campaigns and insight:** Push-notification campaigns targeted by age range and gender with delivery counts, and a dashboard with four KPI cards and Chart.js charts.",
+      "**Operations tools:** Server-side paginated, searchable lists, validated forms, English and Arabic rich-text editors, a retry queue for failed appointment payments, printable branded QR codes and an offline-capable PWA.",
+    ],
+    impacts: [
+      "Hospital staff run the whole patient app from one CMS, in English and Arabic.",
+      "Replay-proof request signing protects every call to the API.",
+    ],
+    technologies: [
+      "React",
+      "Ant Design Pro",
+      "Umi",
+      "dva",
+      "Socket.IO",
+      "Chart.js",
+      "PWA",
+    ],
+  },
+  {
+    slug: "hospital-maintenance-app",
+    title: "Hospital Group Maintenance App",
     period: "Mar 2021 to Aug 2021",
     description:
       "Maintenance-focused mobile app supporting operational workflows, task visibility and service coordination across departments.",
@@ -370,7 +746,7 @@ export const projects: Project[] = [
     highlights: [
       "Improved cross-platform user flows and mobile usability for day-to-day maintenance operations.",
       "Strengthened production readiness, stability and release quality for Android and iOS.",
-      "Reusable workforce-management modules across the Almana product family.",
+      "Reusable workforce-management modules across the hospital group product family.",
     ],
     impacts: [
       "Lower support overhead via clearer task visibility.",
@@ -384,8 +760,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "almana-attendance",
-    title: "Almana Attendance App",
+    slug: "hospital-attendance-app",
+    title: "Hospital Group Attendance App",
     period: "Sep 2020 to Feb 2021",
     description:
       "Attendance and workforce management app with manual check-in, QR scan, facial recognition and history tracking. Reusable cross-platform modules for iOS and Android.",
@@ -409,6 +785,33 @@ export const projects: Project[] = [
       "Firebase",
       "Flipper",
       "App Store Deployment",
+    ],
+  },
+  {
+    slug: "hospital-attendance-admin-portal",
+    title: "Hospital Attendance Admin Portal",
+    period: "Apr 2021 to Aug 2021",
+    description:
+      "React admin portal that runs staff time attendance across the locations of a Saudi hospital group, for four roles.",
+    role: "Associate Software Engineer",
+    company: "Pikes Soft",
+    image: "",
+    highlights: [
+      "**Roles and security:** Four roles (admin, supervisor, manager, HR manager) with per-role route allow-lists, menu filtering, a 60-minute idle logout and a remember-me option.",
+      "**Live dashboard:** 10 KPI cards (check-ins and check-outs by QR code, face recognition and admin, plus device-type totals) and two hourly Chart.js line charts refreshed every 5 minutes.",
+      "**Face ID enrolment:** Webcam capture with preview, conversion to a file and upload, plus actions to remove a registered face or device.",
+      "**Anti-fraud auditing:** A report that flags check-ins and check-outs made on different devices, and a device tracking trail showing the old and current device, who changed it and when.",
+      "**Attendance setup:** Locations with coordinates, per-employee check-in radius, QR or face rules, shifts and group policies, plus time sheets with filters, Excel export, manual edits and printable QR posters.",
+    ],
+    impacts: [
+      "Attendance fraud is visible through device reports and a change trail.",
+      "Admins export filtered time sheets to Excel in one click.",
+    ],
+    technologies: [
+      "React",
+      "Ant Design Pro",
+      "Umi",
+      "Chart.js",
     ],
   },
 ];

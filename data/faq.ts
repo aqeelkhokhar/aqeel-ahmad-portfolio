@@ -9,7 +9,7 @@ export const faq: FaqItem[] = [
   {
     question: "What kind of mobile developer are you?",
     answer:
-      "I am a senior cross platform mobile engineer. I build iOS and Android apps with React Native and Flutter, and I write native modules in Swift and Kotlin when a feature needs platform depth. In 6+ years as a mobile developer I have shipped 14+ products to the App Store, Google Play and Huawei AppGallery.",
+      "I am a senior cross platform mobile engineer. I build iOS and Android apps with React Native and Flutter, and I write native modules in Swift and Kotlin when a feature needs platform depth. In 7+ years as a mobile developer I have shipped 15+ products to the App Store, Google Play and Huawei AppGallery.",
   },
   {
     question: "Should my product use React Native or Flutter?",

@@ -1,45 +1,48 @@
-import { Rocket, Crown, Workflow } from "lucide-react";
+import { Rocket, Crown, LifeBuoy } from "lucide-react";
 import type { Service } from "./types";
 
 export const services: Service[] = [
   {
-    title: "Cross-Platform MVP Build",
+    title: "Fixed-scope project",
+    price: "From $3,000",
     pitch:
-      "From wireframes to App Store. A production-ready MVP in React Native or Flutter your users can hold in their hands in 8 to 12 weeks.",
+      "A clearly scoped build at a fixed price: a feature, an MVP, a marketing site or an admin panel, for mobile or web, shipped with tests and a handover.",
     deliverables: [
-      "Choose React Native (Expo) or Flutter, best fit for your roadmap",
-      "Auth, payments, push notifications, analytics plus AI features wired up",
-      "iOS and Android builds with automated CI/CD and OTA / LiveOps",
-      "Sentry and Crashlytics observability plus a 2-week post-launch warranty",
+      "Written scope, estimate and milestones before any work starts",
+      "React Native, Flutter or Next.js build, whichever fits your roadmap",
+      "Auth, payments, push notifications, analytics and AI features where needed",
+      "CI/CD, crash reporting and store release handled, plus a 2 week post launch warranty",
     ],
-    timeline: "8 to 12 weeks",
+    timeline: "2 to 12 weeks",
     icon: Rocket,
     featured: true,
   },
   {
-    title: "Mobile Tech Lead Engagement",
+    title: "Part-time retainer",
+    price: "From $2,000 per month",
     pitch:
-      "Plug me in as the senior voice on your mobile team. Architecture reviews, mentoring and unblockers across React Native and Flutter without the full-time hire.",
+      "A senior engineer embedded in your team for about 20 hours a week: architecture, delivery and code review without the full-time hire.",
     deliverables: [
-      "Architecture review of your RN or Flutter codebase plus a 30/60/90 plan",
-      "Sprint leadership, code reviews and PR mentoring",
-      "Pair programming on native modules, performance and auth",
-      "Hiring and tech-interview support for mobile candidates",
+      "Architecture review of your codebase and a 30, 60 and 90 day plan",
+      "Sprint leadership, code reviews and mentoring for your engineers",
+      "Hands-on delivery on mobile, web and the API behind them",
+      "Hiring and technical interview support",
     ],
-    timeline: "Ongoing, 20 to 40 hrs per week",
+    timeline: "Ongoing, about 20 hrs per week",
     icon: Crown,
   },
   {
-    title: "CI/CD and Release Hardening",
+    title: "Ongoing support",
+    price: "From $25 per hour",
     pitch:
-      "Cut your release time, stop shipping bugs to prod, and sleep through your next App Store and Play Store submission.",
+      "Pay as you go help for a product that is already live: bug fixes, release rescue, store submissions and CI/CD hardening, with no minimum.",
     deliverables: [
-      "GitHub Actions or Bitrise pipelines for iOS, Android and Huawei",
-      "Code-signing automation, OTA / LiveOps and staged rollouts",
-      "Crash reporting, error budgets and on-call alerting",
-      "Runbooks plus a Loom walkthrough so your team can run it solo",
+      "Bug fixing, performance work and dependency upgrades",
+      "GitHub Actions or Bitrise pipelines, code signing and staged rollouts",
+      "App Store, Google Play and Huawei AppGallery submissions",
+      "Crash reporting, alerting and runbooks your team can run alone",
     ],
-    timeline: "2 to 3 weeks",
-    icon: Workflow,
+    timeline: "As needed, no minimum",
+    icon: LifeBuoy,
   },
 ];

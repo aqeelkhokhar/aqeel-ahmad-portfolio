@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowUpRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/motion/Magnetic";
+import { TiltCard } from "@/components/motion/TiltCard";
 import { CountUp } from "@/components/motion/CountUp";
 import { useBooking } from "@/components/BookingProvider";
 import { personalInfo } from "@/data/personal";
@@ -104,63 +105,79 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Signature element: the release manifest / crew badge. */}
+            {/* Signature element: the release manifest / crew badge. It
+                "prints" in — rows cascade, barcode bars rise — and on hover
+                an orange scan line verifies the photo. */}
             <div className="reveal-scale lg:col-span-5" style={{ animationDelay: "220ms" }}>
-              <div className="mx-auto w-full max-w-sm overflow-hidden rounded-md border border-border bg-card lg:ml-auto lg:mr-0">
-                <div className="flex items-center justify-between border-b border-border px-5 py-3">
-                  <span className="label-mono text-muted-foreground">Release manifest</span>
-                  <span className="label-mono text-primary">AA-2026</span>
-                </div>
-
-                <div className="relative aspect-[4/3] overflow-hidden border-b border-border">
-                  <Image
-                    src={personalInfo.profileImage}
-                    alt={`${personalInfo.name}, Senior Mobile Engineer and Full Stack Developer`}
-                    fill
-                    sizes="(min-width: 1024px) 384px, 100vw"
-                    className="object-cover object-[center_18%]"
-                    priority
-                  />
-                </div>
-
-                <dl className="px-5">
-                  <div className="flex items-baseline justify-between gap-4 py-3">
-                    <dt className="label-mono text-muted-foreground">Engineer</dt>
-                    <dd className="text-right font-heading text-base font-semibold">
-                      {personalInfo.name}
-                    </dd>
+              <TiltCard max={4} className="mx-auto w-full max-w-sm lg:ml-auto lg:mr-0">
+                <div className="manifest-card overflow-hidden rounded-md border border-border bg-card">
+                  <div className="flex items-center justify-between border-b border-border px-5 py-3">
+                    <span className="label-mono text-muted-foreground">Release manifest</span>
+                    <span className="label-mono text-primary">AA-2026</span>
                   </div>
-                  {MANIFEST_ROWS.map((row) => (
+
+                  <div className="relative aspect-[4/3] overflow-hidden border-b border-border">
+                    <Image
+                      src={personalInfo.profileImage}
+                      alt={`${personalInfo.name}, Senior Mobile Engineer and Full Stack Developer`}
+                      fill
+                      sizes="(min-width: 1024px) 384px, 100vw"
+                      className="object-cover object-[center_18%]"
+                      priority
+                    />
+                    <span className="scan-line" aria-hidden="true" />
+                  </div>
+
+                  <dl className="px-5">
                     <div
-                      key={row.label}
-                      className="flex items-baseline justify-between gap-4 border-t border-border py-3"
+                      className="reveal-up flex items-baseline justify-between gap-4 py-3"
+                      style={{ animationDelay: "420ms" }}
                     >
-                      <dt className="label-mono flex-shrink-0 text-muted-foreground">{row.label}</dt>
-                      <dd className="text-right text-sm text-foreground/90">{row.value}</dd>
+                      <dt className="label-mono text-muted-foreground">Engineer</dt>
+                      <dd className="text-right font-heading text-base font-semibold">
+                        {personalInfo.name}
+                      </dd>
                     </div>
-                  ))}
-                  <div className="flex items-baseline justify-between gap-4 border-t border-border py-3">
-                    <dt className="label-mono text-muted-foreground">Status</dt>
-                    <dd className="label-mono inline-flex items-center gap-2 text-primary">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-                      Open for contracts
-                    </dd>
-                  </div>
-                </dl>
-
-                <div className="flex items-center justify-between border-t border-border px-5 py-3">
-                  <div className="flex h-5 items-end gap-[2px]" aria-hidden="true">
-                    {BARCODE.map((w, i) => (
-                      <span
-                        key={i}
-                        className="inline-block h-full bg-foreground/60"
-                        style={{ width: `${w}px` }}
-                      />
+                    {MANIFEST_ROWS.map((row, i) => (
+                      <div
+                        key={row.label}
+                        className="reveal-up flex items-baseline justify-between gap-4 border-t border-border py-3"
+                        style={{ animationDelay: `${490 + i * 70}ms` }}
+                      >
+                        <dt className="label-mono flex-shrink-0 text-muted-foreground">
+                          {row.label}
+                        </dt>
+                        <dd className="text-right text-sm text-foreground/90">{row.value}</dd>
+                      </div>
                     ))}
+                    <div
+                      className="reveal-up flex items-baseline justify-between gap-4 border-t border-border py-3"
+                      style={{ animationDelay: `${490 + MANIFEST_ROWS.length * 70}ms` }}
+                    >
+                      <dt className="label-mono text-muted-foreground">Status</dt>
+                      <dd className="label-mono inline-flex items-center gap-2 text-primary">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+                        Open for contracts
+                      </dd>
+                    </div>
+                  </dl>
+
+                  <div className="flex items-center justify-between border-t border-border px-5 py-3">
+                    <div className="flex h-5 items-end gap-[2px]" aria-hidden="true">
+                      {BARCODE.map((w, i) => (
+                        <span
+                          key={i}
+                          className="bar-rise inline-block h-full bg-foreground/60"
+                          style={{ width: `${w}px`, animationDelay: `${820 + i * 25}ms` }}
+                        />
+                      ))}
+                    </div>
+                    <span className="reveal-fade label-mono text-muted-foreground" style={{ animationDelay: "1100ms" }}>
+                      EST. 2020 · LHE
+                    </span>
                   </div>
-                  <span className="label-mono text-muted-foreground">EST. 2020 · LHE</span>
                 </div>
-              </div>
+              </TiltCard>
             </div>
           </div>
 

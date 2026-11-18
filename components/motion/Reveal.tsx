@@ -4,7 +4,9 @@ interface RevealProps {
   children: ReactNode;
   className?: string;
   as?: ElementType;
-  variant?: "up" | "pop" | "side";
+  /** "group": wrapper only gates visibility; children with gr-* classes run
+      their own orchestrated animations (see globals.css). */
+  variant?: "up" | "pop" | "side" | "group";
   /** Seconds. */
   delay?: number;
 }

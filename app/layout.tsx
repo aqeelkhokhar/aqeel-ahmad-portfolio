@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { BookingProvider } from "@/components/BookingProvider";
@@ -115,6 +116,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
         <StructuredData />
+        {/* Vercel Web Analytics: no dependency. Turn it on once in the Vercel project
+            (Analytics tab); it shows visitors, referrers and UTM tags per channel. */}
+        <Script id="va-init" strategy="afterInteractive">
+          {`window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };`}
+        </Script>
+        <Script src="/_vercel/insights/script.js" strategy="afterInteractive" defer />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <MotionProvider>
             <BookingProvider>{children}</BookingProvider>

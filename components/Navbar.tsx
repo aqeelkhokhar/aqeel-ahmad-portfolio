@@ -120,12 +120,13 @@ export function Navbar() {
             className="border-t border-border bg-background/95 backdrop-blur-md md:hidden"
           >
             <nav className="container flex flex-col py-4">
-              {navItems.map((item) => (
+              {navItems.map((item, i) => (
                 <button
                   key={item.id}
                   onClick={() => handleClick(item.id)}
+                  style={{ animationDelay: `${i * 45}ms` }}
                   className={cn(
-                    "flex items-center justify-between border-b border-border/60 py-3.5 text-left font-heading text-lg font-semibold transition-colors",
+                    "reveal-up flex items-center justify-between border-b border-border/60 py-3.5 text-left font-heading text-lg font-semibold transition-colors",
                     active === item.id ? "text-primary" : "text-foreground hover:text-primary"
                   )}
                 >

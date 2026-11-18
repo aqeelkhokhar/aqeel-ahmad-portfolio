@@ -1,8 +1,8 @@
 import {
-  Timer,
-  Activity,
+  Download,
+  Star,
+  Users,
   Globe2,
-  ShieldCheck,
   Rocket,
   Smartphone,
 } from "lucide-react";
@@ -31,24 +31,24 @@ export const achievements: Achievement[] = [
     icon: Smartphone,
   },
   {
-    metric: "70%",
-    title: "Faster release cycles",
+    metric: "100K+",
+    title: "Downloads on one patient app",
     description:
-      "Automated iOS and Android pipelines on GitHub Actions and Bitrise with code signing, OTA and staged rollouts.",
-    icon: Timer,
+      "A React Native patient app for a Saudi hospital group, live on Google Play and the App Store in English and Arabic, with appointments, payments, teleconsultation and lab results.",
+    icon: Download,
   },
   {
-    metric: "99.9%",
-    title: "Production uptime",
+    metric: "4.9",
+    title: "Rating on Google Play",
     description:
-      "Sentry, Bugsnag and Firebase Crashlytics tuned to catch regressions before users, across fintech and healthcare apps.",
-    icon: Activity,
+      "From 4,590 reviews on the same patient app, with 4.7 on the App Store. Quality gates and crash monitoring keep releases steady.",
+    icon: Star,
   },
   {
-    metric: "0",
-    title: "Critical auth incidents",
+    metric: "7",
+    title: "Engineers led",
     description:
-      "Auth0, Clerk and Firebase Authentication with biometric and multi-factor flows, JWT, SecureStore and SSL pinning across healthcare and fintech releases.",
-    icon: ShieldCheck,
+      "Team lead for client delivery: sprint planning, code review, mentoring and the CI/CD gates that every release passes through.",
+    icon: Users,
   },
 ];

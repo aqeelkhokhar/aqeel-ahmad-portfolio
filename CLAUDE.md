@@ -14,6 +14,10 @@ npm run type-check  # tsc --noEmit
 
 There is no test suite. Verify changes with `npm run type-check` and `npm run build`.
 
+## Git rules (strict)
+
+**Never run `git commit` or `git push` unless the owner explicitly asks for it in the current request.** Approval is per-action and never carries over from an earlier instruction. Finish the work, verify it, report it, and leave the working tree dirty until told otherwise. Feature work goes to the `dev` branch, never directly to `main`.
+
 ## Architecture
 
 Single-page portfolio site for Aqeel Ahmad: Next.js App Router + TypeScript + Tailwind CSS + shadcn/ui + Framer Motion. Builds statically, deploys to Vercel, no required env vars.
@@ -47,6 +51,7 @@ The visual identity treats the portfolio as a shipping document: projects are a 
 - **Every section follows the active theme** (no always-dark subtrees). An earlier iteration dark-scoped the hero/contact; that was removed because it made the theme toggle look broken. Section boundaries are crisp hairlines (`border-border`) — no seam gradients.
 - `ThemeToggle` must read `resolvedTheme` (not `theme`): with `enableSystem` the stored value can be `"system"`, which makes a `theme === "dark"` check wrong.
 - Above-the-fold entrances (hero, navbar) are **CSS-only** (`reveal-up`, `reveal-line`, `header-drop` in `app/globals.css`) so they paint before hydration. Below-fold sections use the server-rendered `Reveal` component (`data-reveal` + one `RevealObserver` IntersectionObserver) — not per-element framer-motion. `components/AnimatedSection.tsx` / `components/Motion.tsx` still exist but are unused by sections.
+- **Motion vocabulary is mechanical/document-like** (printing, stamping, scanning, ticking) to match the manifest concept. Key pieces: `Reveal variant="group"` + `gr-*` child classes (rule draws, square stamps, title rises — used by SectionHeading and Contact); the hero manifest card "prints" (row cascade + `bar-rise` barcode) with a `.scan-line` hover sweep and a subtle TiltCard; `ReleaseTicker` is a pure-CSS marquee of real releases under the hero (`.ticker`, duplicated content, hover-pause); ledger rows grow an orange edge bar on hover and carry `data-cursor-label="Open"`; FAQ answers animate via `details[open] .faq-answer`. All of it collapses under `prefers-reduced-motion`.
 - `RevealObserver` uses a near-zero threshold (0.01) on purpose: blocks taller than the viewport can never reach a fractional intersection threshold.
 - Framer usage goes through `LazyMotion` (`components/MotionProvider.tsx`, non-strict): import `m` from framer-motion, not `motion`.
 - Interaction primitives live in `components/motion/` (Magnetic, TiltCard, CustomCursor, ScrollProgress, CountUp, Reveal + RevealObserver). All are gated on fine pointer + `prefers-reduced-motion`; the custom cursor is a decorative overlay (no `cursor: none`) so it can't break selection or inputs.
@@ -55,8 +60,8 @@ The visual identity treats the portfolio as a shipping document: projects are a 
 
 ### Client-name policy
 
-The web projects in `data/` describe real client work under **generic names**. The strings "Sarayi", "Khaleej", "SAK", and "Ozone" must never appear anywhere in this repo (code, comments, data, assets). Verify with:
-`grep -rniE "sarayi|khaleej|ozone" app components data lib public` and `grep -rn "SAK" app components data lib`.
+The web projects in `data/` describe real client work under **generic names**. The strings "Sarayi", "Khaleej", "SAK", and "Ozone" must never appear anywhere in this repo (code, comments, data, assets). Since 2026-11-18 (NDAs signed) the same applies to every real client or product name: Hansel, Almana, LuxMedica, Saray, Kinetic, Selara, Pikes Sales, Amala, Sandseeker, MyDreamGov, BrainApp, iHide, Pangea, Virtual World, Trusted Air, CourtPro and Blackstone. Use generic titles and descriptions (for example "FinTech Gifting App"). The employer name Pikes Soft and Aqeel's own open source packages may stay. Verify with:
+`grep -rniE "sarayi|khaleej|ozone|hansel|almana|luxmedica|saray|kinetic|selara|amala|sandseeker|mydreamgov|brainapp|ihide|pangea|virtual world|trusted air|courtpro|blackstone" app components data lib public` and `grep -rn "SAK" app components data lib`.
 
 ### Other structure notes
 

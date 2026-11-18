@@ -52,9 +52,15 @@ export function Projects() {
             <Reveal key={project.slug} delay={Math.min(index, 4) * 0.05}>
               <button
                 onClick={() => setOpenSlug(project.slug)}
-                className="group grid w-full grid-cols-1 items-start gap-x-6 gap-y-3 border-b border-border px-3 py-7 text-left transition-colors hover:bg-muted/50 md:grid-cols-12 md:px-4"
+                className="group relative grid w-full grid-cols-1 items-start gap-x-6 gap-y-3 border-b border-border px-3 py-7 text-left transition-colors hover:bg-muted/50 md:grid-cols-12 md:px-4"
                 aria-label={`Open case study: ${project.title}`}
+                data-cursor
+                data-cursor-label="Open"
               >
+                <span
+                  className="absolute left-0 top-0 h-full w-[2px] origin-bottom scale-y-0 bg-primary transition-transform duration-300 ease-out group-hover:scale-y-100"
+                  aria-hidden="true"
+                />
                 <div className="md:col-span-2">
                   <div
                     className={cn(

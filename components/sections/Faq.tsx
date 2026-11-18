@@ -26,7 +26,7 @@ export function Faq() {
                   aria-hidden="true"
                 />
               </summary>
-              <p className="max-w-3xl pb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
+              <p className="faq-answer max-w-3xl pb-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
                 {item.answer}
               </p>
             </details>

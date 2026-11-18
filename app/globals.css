@@ -100,11 +100,97 @@
     animation: header-drop 0.6s var(--ease-expo) backwards;
   }
 
+  /* Barcode bars "print" in: scaleY from the baseline. */
+  .bar-rise {
+    animation: bar-rise 0.5s var(--ease-expo) backwards;
+    transform-origin: bottom;
+  }
+
   /* Below-fold sections skip layout/paint until scrolled near; the
      intrinsic-size placeholder keeps the scrollbar stable. */
   .cv-auto {
     content-visibility: auto;
     contain-intrinsic-size: auto 900px;
+  }
+}
+
+/* ————— Release ticker (marquee of shipped releases) —————
+   Content is rendered twice back-to-back; sliding -50% loops seamlessly. */
+.ticker {
+  animation: ticker-scroll 55s linear infinite;
+}
+.ticker-wrap:hover .ticker {
+  animation-play-state: paused;
+}
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ————— Manifest card: ID-verification scan line on hover ————— */
+.manifest-card .scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: hsl(var(--primary));
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.manifest-card:hover .scan-line {
+  animation: scan-sweep 1.2s ease-in-out;
+}
+@keyframes scan-sweep {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.9;
+  }
+  88% {
+    opacity: 0.9;
+  }
+  100% {
+    top: calc(100% - 2px);
+    opacity: 0;
+  }
+}
+
+/* ————— FAQ: answer slides in when a <details> opens ————— */
+details[open] .faq-answer {
+  animation: reveal-up 0.45s var(--ease-expo);
+}
+
+@keyframes bar-rise {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes stamp-in {
+  from {
+    opacity: 0;
+    transform: scale(2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -181,6 +267,41 @@ html[data-js] [data-reveal="pop"].is-in {
 html[data-js] [data-reveal="side"].is-in {
   animation-name: reveal-side;
   animation-duration: 0.6s;
+}
+
+/* "group" variant: the wrapper only gates visibility; children carry their
+   own orchestrated animations (rule draws, square stamps, title rises).
+   Used by SectionHeading and the Contact intro. */
+html[data-js] [data-reveal="group"].is-in {
+  animation: none;
+}
+html[data-js] [data-reveal="group"] .gr-rule {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+html[data-js] [data-reveal="group"].is-in .gr-rule {
+  animation: rule-draw 0.9s var(--ease-expo) forwards;
+}
+html[data-js] [data-reveal="group"] .gr-stamp {
+  opacity: 0;
+}
+html[data-js] [data-reveal="group"].is-in .gr-stamp {
+  animation: stamp-in 0.45s var(--ease-expo) forwards;
+  animation-delay: var(--gr-delay, 0ms);
+}
+html[data-js] [data-reveal="group"] .gr-fade {
+  opacity: 0;
+}
+html[data-js] [data-reveal="group"].is-in .gr-fade {
+  animation: reveal-up 0.6s var(--ease-expo) forwards;
+  animation-delay: var(--gr-delay, 0ms);
+}
+html[data-js] [data-reveal="group"] .gr-line {
+  transform: translateY(110%);
+}
+html[data-js] [data-reveal="group"].is-in .gr-line {
+  animation: reveal-line 0.8s var(--ease-expo) forwards;
+  animation-delay: var(--gr-delay, 0ms);
 }
 
 @keyframes reveal-pop {

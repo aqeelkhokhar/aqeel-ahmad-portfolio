@@ -14,13 +14,12 @@ export function Skills() {
         description="Every tool here has shipped to production, nothing listed from a tutorial."
       />
 
-      <Reveal>
-        <dl className="border-y border-border">
-          {skills.map((group) => (
-            <div
-              key={group.category}
-              className="grid gap-y-1 border-b border-border py-4 last:border-b-0 md:grid-cols-12 md:gap-x-8"
-            >
+      {/* Rows carry border-b (the last one doubles as the list's bottom rule)
+          because the Reveal wrapper breaks a `last:` selector on the row. */}
+      <dl className="border-t border-border">
+        {skills.map((group, idx) => (
+          <Reveal key={group.category} delay={Math.min(idx, 6) * 0.05}>
+            <div className="grid gap-y-1 border-b border-border py-4 md:grid-cols-12 md:gap-x-8">
               <dt className="label-mono pt-1 text-muted-foreground md:col-span-4 lg:col-span-3">
                 {group.category}
               </dt>
@@ -33,9 +32,9 @@ export function Skills() {
                 ))}
               </dd>
             </div>
-          ))}
-        </dl>
-      </Reveal>
+          </Reveal>
+        ))}
+      </dl>
     </section>
   );
 }

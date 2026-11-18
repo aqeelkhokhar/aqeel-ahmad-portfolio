@@ -35,15 +35,29 @@ export function Contact() {
     <section id="contact" className="scroll-mt-20">
       <div className="border-t border-border bg-background py-24 text-foreground sm:py-32">
         <div className="container">
-          <Reveal>
+          <Reveal variant="group">
             <span className="label-mono inline-flex items-center gap-2.5 text-muted-foreground">
-              <span className="h-2 w-2 bg-primary" aria-hidden="true" />
-              Next release
+              <span
+                className="gr-stamp h-2 w-2 bg-primary"
+                style={{ "--gr-delay": "150ms" } as React.CSSProperties}
+                aria-hidden="true"
+              />
+              <span className="gr-fade" style={{ "--gr-delay": "100ms" } as React.CSSProperties}>
+                Next release
+              </span>
             </span>
-            <h2 className="mt-6 max-w-3xl font-heading text-4xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-              Ship yours next<span className="text-primary">.</span>
+            <h2 className="mt-6 max-w-3xl overflow-hidden font-heading text-4xl font-bold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+              <span
+                className="gr-line block pb-1"
+                style={{ "--gr-delay": "180ms" } as React.CSSProperties}
+              >
+                Ship yours next<span className="text-primary">.</span>
+              </span>
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p
+              className="gr-fade mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+              style={{ "--gr-delay": "320ms" } as React.CSSProperties}
+            >
               The fastest way to start is a 20 minute discovery call. It is free, zero pressure,
               and you leave with a clear read on scope either way.
             </p>

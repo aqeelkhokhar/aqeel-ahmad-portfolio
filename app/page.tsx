@@ -3,6 +3,7 @@ import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import { RevealObserver } from "@/components/motion/RevealObserver";
 import { Hero } from "@/components/sections/Hero";
+import { ReleaseTicker } from "@/components/sections/ReleaseTicker";
 import { About } from "@/components/sections/About";
 import { Services } from "@/components/sections/Services";
 import { Skills } from "@/components/sections/Skills";
@@ -25,6 +26,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <ReleaseTicker />
         <About />
         {/* cv-auto defers layout/paint of below-fold sections until scrolled near */}
         <div className="cv-auto">

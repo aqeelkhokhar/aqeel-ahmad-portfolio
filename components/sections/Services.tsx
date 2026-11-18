@@ -14,7 +14,7 @@ export function Services() {
       <SectionHeading
         eyebrow={`Engagements · ${services.length} ways to work together`}
         title="Plug me into your roadmap."
-        description="Fixed scope builds, embedded leadership or release rescue. Pick the shape that fits."
+        description="A fixed-scope project, a part-time retainer or ongoing support. Pick the shape that fits."
       />
 
       <div className="grid gap-5 lg:grid-cols-3">
@@ -30,6 +30,9 @@ export function Services() {
                 <h3 className="font-heading text-xl font-semibold tracking-tight">
                   {service.title}
                 </h3>
+                {service.price && (
+                  <p className="label-mono mt-2 text-primary">{service.price}</p>
+                )}
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{service.pitch}</p>
 
                 <ul className="mt-6 flex-1 space-y-3">

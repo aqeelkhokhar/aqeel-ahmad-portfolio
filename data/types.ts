@@ -35,6 +35,7 @@ export type Stat = {
 
 export type Service = {
   title: string;
+  price?: string;
   pitch: string;
   deliverables: string[];
   timeline: string;
